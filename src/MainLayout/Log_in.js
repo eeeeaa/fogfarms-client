@@ -15,9 +15,8 @@ function Login(props){
     }
     return(
         <Container fluid className="Login">
-            
+            <Image className="fluid mx-auto d-block" src= {Logo} fluid />
             <form onSubmit={handleSubmit}>
-                <Image src= {Logo} fluid />
                 <Form.Group controlId="Email">
                     <Form.Label>Email Address</Form.Label>
                     <FormControl 
