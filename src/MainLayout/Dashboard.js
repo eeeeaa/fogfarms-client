@@ -6,7 +6,8 @@ import ModuleContextProvider from './contexts/ModuleContext';
 function Dashboard() {
 	return (
 		<div className="dashBoard">
-			<ModuleContextProvider>
+			<ModuleContextProvider className="ModuleSelectBox">
+				<h1>Module - Module Group xxx</h1>
 				<ModuleSelect />
 			</ModuleContextProvider>
 		</div>

@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { ModuleContext } from '../contexts/ModuleContext';
+import Module from './Module';
 
 const ModuleSelect = () => {
 	const { modules } = useContext(ModuleContext);
@@ -7,7 +8,7 @@ const ModuleSelect = () => {
 		<div className="module-list">
 			<ul>
 				{modules.map((module) => {
-					return <h1>hi</h1>;
+					return <Module module={module} key={module.id} />;
 				})}
 			</ul>
 		</div>
