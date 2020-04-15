@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { ModuleContext } from '../contexts/ModuleContext';
+import { ModuleContext } from '../../contexts/ModuleContext';
 import Module from './Module';
 
 const ModuleSelect = () => {
