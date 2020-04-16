@@ -6,6 +6,9 @@ import ModuleSelectHeader from './components/ModuleGroup/ModuleSelectHeader';
 import ControlledContextProvider from './contexts/ControlledContext';
 import ModuleControllerHeader from './components/ModuleController/ModuleControllerHeader';
 import ModuleControllerList from './components/ModuleController/ModuleControllerList';
+import ModuleDataContextProvider from './contexts/ModuleDataContext';
+import ModuleDataGraph from './components/ModuleData/ModuleDataGraph';
+import ModuleDataGrowUnit from './components/ModuleData/ModuleDataGrowUnit';
 
 function Dashboard() {
 	return (
@@ -14,6 +17,10 @@ function Dashboard() {
 				<ModuleSelectHeader />
 				<ModuleSelect />
 			</ModuleContextProvider>
+			<ModuleDataContextProvider>
+				<ModuleDataGraph />
+				<ModuleDataGrowUnit />
+			</ModuleDataContextProvider>
 			<ControlledContextProvider>
 				<ModuleControllerHeader />
 				<ModuleControllerList />
