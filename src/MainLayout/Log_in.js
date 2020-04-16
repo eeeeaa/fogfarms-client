@@ -20,7 +20,7 @@ function Login(props) {
 			username: email,
 			password: password,
 		};
-		axios.post(serverName.concat('/foo', { data })).then((res) => {
+		axios.post(serverName + '/auth/sign_in', data).then((res) => {
 			console.log(res);
 		});
 	}
