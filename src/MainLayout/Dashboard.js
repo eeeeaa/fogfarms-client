@@ -9,10 +9,14 @@ import ModuleControllerList from './components/ModuleController/ModuleController
 import ModuleDataContextProvider from './contexts/ModuleDataContext';
 import ModuleDataGraph from './components/ModuleData/ModuleDataGraph';
 import ModuleDataGrowUnit from './components/ModuleData/ModuleDataGrowUnit';
+import SignInButton from './TestFunction/QuickSignIn';
+import SignOutButton from './TestFunction/QuickSignOut';
 
 function Dashboard() {
 	return (
 		<div className="dashBoard">
+			<SignInButton />
+			<SignOutButton />
 			<ModuleContextProvider>
 				<ModuleSelectHeader />
 				<ModuleSelect />
