@@ -10,7 +10,9 @@ class SignOutButton extends Component {
 					app.get(url + '/modulegroup_management').then((res) => {
 						if (res.status === 200) {
 							console.log('i can pull the data');
-							console.log(res.data)
+							console.log(typeof res.data)
+							console.log(JSON.stringify(res.data))
+							console.log(typeof JSON.stringify(res.data))
 						} else {
 							console.log('nope');
 						}
