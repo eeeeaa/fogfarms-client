@@ -1,6 +1,6 @@
 import React from 'react';
 import '../css_sheet/global_theme.css';
-import { Container, Row } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 
 function Management_select(){
     return(
@@ -8,6 +8,7 @@ function Management_select(){
             <Row>
                 <Col>ModuleGroup Management</Col>
                 <Col>User Management</Col>
+                <Col>Plant Management</Col>
             </Row>
         </Container>
     )

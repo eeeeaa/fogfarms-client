@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import app from '../axiosConfig';
 
 class SignOutButton extends Component {
@@ -8,18 +7,17 @@ class SignOutButton extends Component {
 		return (
 			<button
 				onClick={() =>
-					app.get(url + '/user_management').then((res) => {
-						console.log(res);
+					app.get(url + '/modulegroup_management').then((res) => {
 						if (res.status === 200) {
 							console.log('i can pull the data');
-							console.log(res);
+							console.log(res.data)
 						} else {
 							console.log('nope');
 						}
 					})
 				}
 			>
-				Temporary SignOut
+				Temporary callData
 			</button>
 		);
 	}

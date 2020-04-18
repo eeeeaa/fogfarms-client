@@ -1,19 +1,13 @@
-import React, { createContext, useReducer, useEffect } from 'react';
+import React, { createContext, useReducer, useEffect, useState } from 'react';
 import { moduleReducer } from '../reducers/ModuleReducer';
 
 export const ModuleContext = createContext();
 
+const url = 'https://salty-oasis-24147.herokuapp.com';
+const initial = [{name: 'hi'}];
+
 const ModuleContextProvider = (props) => {
-	const [modules, dispatch] = useReducer(
-		moduleReducer,
-		[
-			{ name: 'A', ownedBy: 'me' },
-			{ name: 'B', ownedBy: 'not me' },
-		]
-		// , () => {
-		//for local storage and cookie
-		// 	// default DataCue, load from dave data as json.
-		// }
+	const [modules, dispatch] = useReducer(moduleReducer, initial
 	);
 	return <ModuleContext.Provider value={{ modules, dispatch }}>{props.children}</ModuleContext.Provider>;
 };
