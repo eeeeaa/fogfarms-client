@@ -12,25 +12,28 @@ import ModuleDataGrowUnit from './components/ModuleData/ModuleDataGrowUnit';
 import SignInButton from './TestFunction/QuickSignIn';
 import APICheck from './TestFunction/QuickAPICheck';
 import SignOutButton from './TestFunction/QuickSignOut';
+import { Container, Row, Col } from 'react-bootstrap';
 
 function Dashboard() {
 	return (
 		<div className="dashBoard">
+			<Container>
+				<ModuleContextProvider>
+					<ModuleSelectHeader />
+					<ModuleSelect />
+				</ModuleContextProvider>
+				<ModuleDataContextProvider>
+					<ModuleDataGraph />
+					<ModuleDataGrowUnit />
+				</ModuleDataContextProvider>
+				<ControlledContextProvider>
+					<ModuleControllerHeader />
+					<ModuleControllerList />
+				</ControlledContextProvider>
+			</Container>
 			<SignInButton />
 			<APICheck />
 			<SignOutButton/>
-			<ModuleContextProvider>
-				<ModuleSelectHeader />
-				<ModuleSelect />
-			</ModuleContextProvider>
-			<ModuleDataContextProvider>
-				<ModuleDataGraph />
-				<ModuleDataGrowUnit />
-			</ModuleDataContextProvider>
-			<ControlledContextProvider>
-				<ModuleControllerHeader />
-				<ModuleControllerList />
-			</ControlledContextProvider>
 		</div>
 	);
 }

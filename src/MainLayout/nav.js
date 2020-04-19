@@ -15,7 +15,6 @@ function MenuBar(){
                 <LinkContainer to = '/dashboard'>
                     <Nav.Link>Dashboard</Nav.Link>
                 </LinkContainer>
-                
             </Nav>
         </Navbar>
     );
