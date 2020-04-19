@@ -11,12 +11,12 @@ const ModuleContextProvider = (props) => {
 		const url = 'https://salty-oasis-24147.herokuapp.com';
 		const result = await app.get(url + '/modulegroup_management');
 		const data = result.data;
-		console.log(result.data.modulegroup1.on_auto);
+		// console.log(result.data.modulegroup1.on_auto);
 		const modulesJson = Object.keys(result.data).map((key,i) => {
 			return {...data[key]};
 		})
-		console.log(modulesJson);
-		console.log("module_group_id : " + modulesJson[0].module_group_id);
+		// console.log(modulesJson);
+		// console.log("module_group_id : " + modulesJson[0].module_group_id);
 		setModules(modulesJson);
 	}, [])
 	return <ModuleContext.Provider value={{modules}}>{props.children}</ModuleContext.Provider>;

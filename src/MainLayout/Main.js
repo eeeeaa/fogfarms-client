@@ -8,8 +8,8 @@ import Manage_user from './Manage_User';
 import Manage_module from './Manage_Module';
 import Manage_plant from './Manage_plant';
 
-function Main() {
-	return (
+const Menu = () => {
+	return ( 
 		<Router>
 			<MenuBar />
 			<Switch>
@@ -21,7 +21,7 @@ function Main() {
 				<Route path="/management/plant" component={Manage_plant} />
 			</Switch>
 		</Router>
-	);
+	 );
 }
-
-export default Main;
+ 
+export default Menu;
