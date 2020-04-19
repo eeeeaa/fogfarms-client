@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import app from '../axiosConfig';
+import app from '../functions/axiosConfig';
 import { useHistory } from 'react-router-dom';
 
 const SignoutButton = () => {

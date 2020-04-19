@@ -1,12 +1,12 @@
-import Login from './Log_in';
-import Dashboard from './Dashboard';
+import Login from './pages/Log_in';
+import Dashboard from './pages/Dashboard';
 import MenuBar from './nav';
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Management_select from './Manage_Select';
-import Manage_user from './Manage_User';
-import Manage_module from './Manage_Module';
-import Manage_plant from './Manage_plant';
+import Management_select from './pages/Manage_Select';
+import Manage_user from './pages/Manage_User';
+import Manage_module from './pages/Manage_Module';
+import Manage_plant from './pages/Manage_plant';
 
 const Menu = () => {
 	return ( 

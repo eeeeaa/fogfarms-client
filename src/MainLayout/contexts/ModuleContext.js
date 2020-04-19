@@ -1,6 +1,6 @@
-import React, { createContext, useReducer, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { moduleReducer } from '../reducers/ModuleReducer';
-import app from '../axiosConfig';
+import app from '../functions/axiosConfig';
 
 export const ModuleContext = createContext();
 
