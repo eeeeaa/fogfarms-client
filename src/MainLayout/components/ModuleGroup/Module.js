@@ -5,7 +5,7 @@ const Module = ({ module }) => {
 	const { dispatch } = useContext(ModuleContext);
 	return (
 		<li>
-			<div className="moduleName">{module.name}</div>
+			<div className="moduleName" onClick={() => console.log('u click at '+ module.module_group_id)}>Module {module.module_group_id}</div>
 		</li>
 	);
 };
