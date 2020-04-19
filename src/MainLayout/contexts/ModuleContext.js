@@ -13,10 +13,6 @@ const ModuleContextProvider = (props) => {
 		const data = result.data;
 		console.log(result.data.modulegroup1.on_auto);
 		const modulesJson = Object.keys(result.data).map((key,i) => {
-			// console.log(key);
-			// console.log(i);
-			// console.log(result.data);
-			// console.log(result.data.key.module_group_id);
 			return {...data[key]};
 		})
 		console.log(modulesJson);

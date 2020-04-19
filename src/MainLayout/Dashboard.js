@@ -10,13 +10,15 @@ import ModuleDataContextProvider from './contexts/ModuleDataContext';
 import ModuleDataGraph from './components/ModuleData/ModuleDataGraph';
 import ModuleDataGrowUnit from './components/ModuleData/ModuleDataGrowUnit';
 import SignInButton from './TestFunction/QuickSignIn';
+import APICheck from './TestFunction/QuickAPICheck';
 import SignOutButton from './TestFunction/QuickSignOut';
 
 function Dashboard() {
 	return (
 		<div className="dashBoard">
 			<SignInButton />
-			<SignOutButton />
+			<APICheck />
+			<SignOutButton/>
 			<ModuleContextProvider>
 				<ModuleSelectHeader />
 				<ModuleSelect />
