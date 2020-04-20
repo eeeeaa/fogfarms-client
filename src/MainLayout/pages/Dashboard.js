@@ -13,7 +13,7 @@ import ModuleControllerTabs from '../components/ModuleController/ModuleControlle
 import SignoutButton from '../TestFunction/QuickSignOut';
 
 const Dashboard = () => {
-	return ( 
+	return (
 		<div className="dashBoard">
 			<Container>
 				<Row>
@@ -32,14 +32,14 @@ const Dashboard = () => {
 					<Col>
 						<ControlledContextProvider>
 							<ModuleControllerHeader />
-							<ModuleControllerTabs/>
+							<ModuleControllerTabs />
 						</ControlledContextProvider>
 					</Col>
 				</Row>
 			</Container>
-			<SignoutButton/>
+			<SignoutButton />
 		</div>
-	 );
-}
- 
+	);
+};
+
 export default Dashboard;
