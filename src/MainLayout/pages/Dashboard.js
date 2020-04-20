@@ -17,6 +17,7 @@ const Dashboard = () => {
 		<div className="dashBoard">
 			<Container>
 				<Row>
+				<ModuleDataContextProvider>
 					<Col>
 						<ModuleContextProvider>
 							<ModuleSelectHeader />
@@ -24,17 +25,14 @@ const Dashboard = () => {
 						</ModuleContextProvider>
 					</Col>
 					<Col xs={6}>
-						<ModuleDataContextProvider>
-							<ModuleDataGraph />
-							<ModuleDataGrowUnit />
-						</ModuleDataContextProvider>
+						<ModuleDataGraph />
+						<ModuleDataGrowUnit />
 					</Col>
 					<Col>
-						<ControlledContextProvider>
-							<ModuleControllerHeader />
-							<ModuleControllerTabs />
-						</ControlledContextProvider>
+						<ModuleControllerHeader />
+						<ModuleControllerTabs />
 					</Col>
+					</ModuleDataContextProvider>
 				</Row>
 			</Container>
 			<SignoutButton />

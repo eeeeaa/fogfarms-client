@@ -7,7 +7,7 @@ const ModuleDataGraph = () => {
 	return (
 		<div className="graph-data">
 			<Row>
-				<Col>2 ppm</Col>
+				<Col>{datas.sensor_module}</Col>
 				<Col>ph 5.4</Col>
 				<Col>sol temp: 34 C</Col>
 			</Row>

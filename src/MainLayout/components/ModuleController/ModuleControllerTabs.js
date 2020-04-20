@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Tabs, Tab } from 'react-bootstrap';
 import ModuleParameterControl from './ModuleParameterControl';
 import ModuleControllerList from './ModuleControllerList';

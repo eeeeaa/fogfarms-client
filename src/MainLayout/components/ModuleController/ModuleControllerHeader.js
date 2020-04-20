@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { ControlledContext } from '../../contexts/ControlledContext';
+import { ModuleDataContext } from '../../contexts/ModuleDataContext';
 
 const ModuleControllerHeader = () => {
-	const { controllers } = useContext(ControlledContext);
+	const { datas } = useContext(ModuleDataContext);
 	return (
 		<div className="moduleControllerHeader">
 			<p>Controller</p>

@@ -4,7 +4,7 @@ import Module from './Module';
 
 const ModuleSelect = () => {
 	const { modules } = useContext(ModuleContext);
-	console.log('Modules Group: ', modules);
+	console.log('Modules Group Select: ', modules);
 	return modules.length ? (
 		<div className="module-list">
 			<ul>

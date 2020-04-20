@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
-import { ControlledContext } from '../../contexts/ControlledContext';
 import ControllerDetail from './ControllerDetail';
+import { ModuleDataContext } from '../../contexts/ModuleDataContext';
 
 const ModuleControllerList = () => {
-	const { controllers } = useContext(ControlledContext);
-	return controllers.length ? (
+	const { datas } = useContext(ModuleDataContext);
+	return datas.length ? (
 		<div className="controller-list">
 			<ul>
-				{controllers.map((controller) => {
+				{datas.map((controller) => {
 					return <ControllerDetail controller={controller} status={controller.status} key={controller.id} />;
 				})}
 			</ul>
