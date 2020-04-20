@@ -1,8 +1,8 @@
 import React from 'react';
-import '../css_sheet/global_theme.css';
+import '../../css_sheet/global_theme.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-import SignOutButton from './TestFunction/QuickSignOut';
+import SignOutButton from '../TestFunction/QuickSignOut';
 
 function Management_select(){
     let history = useHistory();
