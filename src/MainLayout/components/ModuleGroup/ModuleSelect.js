@@ -2,11 +2,9 @@ import React, { useContext } from 'react';
 import { ModuleContext } from '../../contexts/ModuleContext';
 import Module from './Module';
 
-
 const ModuleSelect = () => {
 	const { modules } = useContext(ModuleContext);
-	console.log(typeof modules)
-	console.log(modules)
+	console.log('Modules Group: ', modules);
 	return modules.length ? (
 		<div className="module-list">
 			<ul>

@@ -5,18 +5,21 @@ import { useHistory } from 'react-router-dom';
 const SignoutButton = () => {
 	let history = useHistory();
 	const url = 'https://salty-oasis-24147.herokuapp.com';
-	return ( 
-		<button 
+	return (
+		<button
 			onClick={() =>
 				app.get(url + '/auth/sign_out').then((res) => {
 					if (res.status === 200) {
-						console.log('u r signing out, return to login page');
-						history.push("/")
+						console.log('Auth: Signing Out');
+						history.push('/');
 					}
 				})
 			}
-			> SignOut Button
-		</button> );
-}
+		>
+			{' '}
+			SignOut Button
+		</button>
+	);
+};
 
 export default SignoutButton;

@@ -12,12 +12,10 @@ class SignInButton extends Component {
 			<button
 				onClick={() =>
 					app.post(url + '/auth/sign_in', data).then((res) => {
-						console.log('hihihi');
-						console.log(res);
 						if (res.status === 200) {
-							console.log('temp sign in working');
+							console.log('Auth: Signing In');
 						} else {
-							console.log('nope');
+							console.log('Auth: Failed');
 						}
 					})
 				}

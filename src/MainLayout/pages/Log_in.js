@@ -16,21 +16,17 @@ function Login(props) {
 	}
 	function handleSubmit(event) {
 		event.preventDefault();
-		console.log(email + ' ' + password);
-		// console.log(serverName.concat('/auth/sign_in'));
 		const data = {
 			username: email,
 			password: password,
 		};
 		app.post(url + '/auth/sign_in', data).then((res) => {
-			console.log(res);
-			if (res.status ===200){
-				history.push("/management_select")
-			}else{
-				console.log("login fail");
+			if (res.status === 200) {
+				history.push('/management_select');
+			} else {
+				console.log('Auth: login fail');
 			}
 		});
-		
 	}
 	return (
 		<Container fluid className="Login">
