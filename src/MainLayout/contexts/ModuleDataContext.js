@@ -9,11 +9,11 @@ const ModuleDataContextProvider = (props) => {
 	const info = {
 		module_group_id: 1 //(work) need to match with teh module management.
 	}
-	useEffect(() => {
-		app.post(url + '/dashboard', info).then((res) => {
-			const info = res.data;
-			const modulesJson = Object.keys(info).map((key, i) => {
-				return { ...info[key]};
+	useEffect(async () => {
+		await app.post(url + '/dashboard', info).then((res) => {
+			const recieveData = res.data;
+			const modulesJson = Object.keys(recieveData).map((key, i) => {
+				return { ...recieveData[key], "name":key};
 			});
 			setDatas(modulesJson);
 		});

@@ -2,8 +2,6 @@ import React from 'react';
 import '../../css_sheet/global_theme.css';
 import ModuleSelect from '../components/ModuleGroup/ModuleSelect';
 import ModuleContextProvider from '../contexts/ModuleContext';
-import ModuleSelectHeader from '../components/ModuleGroup/ModuleSelectHeader';
-import ControlledContextProvider from '../contexts/ControlledContext';
 import ModuleControllerHeader from '../components/ModuleController/ModuleControllerHeader';
 import ModuleDataContextProvider from '../contexts/ModuleDataContext';
 import ModuleDataGraph from '../components/ModuleData/ModuleDataGraph';
@@ -18,11 +16,9 @@ const Dashboard = () => {
 			<Container>
 				<Row>
 				<ModuleDataContextProvider>
+				<ModuleContextProvider>
 					<Col>
-						<ModuleContextProvider>
-							<ModuleSelectHeader />
-							<ModuleSelect />
-						</ModuleContextProvider>
+						<ModuleSelect />
 					</Col>
 					<Col xs={6}>
 						<ModuleDataGraph />
@@ -32,6 +28,7 @@ const Dashboard = () => {
 						<ModuleControllerHeader />
 						<ModuleControllerTabs />
 					</Col>
+					</ModuleContextProvider>
 					</ModuleDataContextProvider>
 				</Row>
 			</Container>

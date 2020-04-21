@@ -11,12 +11,14 @@ const ModuleContextProvider = (props) => {
 		app.get(url + '/modulegroup_management').then((res) => {
 			const data = res.data;
 			const modulesJson = Object.keys(data).map((key, i) => {
-				return { ...data[key] };
+				return { ...data[key], "name":key };
 			});
+			// const removeNull = modulesJson.filter((module) => {	//if anybody looking at this code, pls tell me that i'm a stupid programmer.
+			// 	return module.name !== "null"
+			// })
 			setModules(modulesJson);
 		});
 	}, []);
-
 	return <ModuleContext.Provider value={{ modules }}>{props.children}</ModuleContext.Provider>;
 };
 

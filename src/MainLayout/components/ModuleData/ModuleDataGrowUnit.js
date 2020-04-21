@@ -4,7 +4,6 @@ import ModuleDataDetail from './ModuleDataDetail';
 
 const ModuleDataGrowUnit = () => {
 	const { datas } = useContext(ModuleDataContext);
-	console.log("Data Check : ",datas)
 	return (
 		<div className="grow-list">
 			<ul>

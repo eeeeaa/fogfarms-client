@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
-import { ModuleContext } from '../../contexts/ModuleContext';
+import React, { useContext, useState } from 'react';
+import { ModuleDataContext } from '../../contexts/ModuleDataContext';
 
-const Module = ({ module }) => {
-	const { } = useContext(ModuleContext);
+const Module = ({ name }) => {
 	return (
-		<li>
-			<div className="moduleName" onClick={() => console.log('u click at ' + module.module_group_id)}>
-				Module {module.module_group_id}
+		// fix here
+		<li onClick={() => {console.log("Who are U : ", name)}}>
+			<div className="moduleName">
+				{name}
 			</div>
 		</li>
 	);

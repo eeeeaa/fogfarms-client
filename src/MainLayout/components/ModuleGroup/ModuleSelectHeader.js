@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { ModuleContext } from '../../contexts/ModuleContext';
+import { ModuleDataContext } from '../../contexts/ModuleDataContext';
 
 const ModuleSelectHeader = () => {
-	const { modules } = useContext(ModuleContext);
+	const { datas } = useContext(ModuleDataContext);
 	return (
 		<div className="ModuleSelectBox">
 			<p>Module - Module Group xxx</p>

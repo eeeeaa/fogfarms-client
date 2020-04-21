@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { ModuleDataContext } from '../../contexts/ModuleDataContext';
 
 const ControllerDetail = ({ datas }) => {
-	const { dispatch } = useContext(ModuleDataContext);
 	return (
 		<li>
 			<div className="controller">which do u controll</div>
