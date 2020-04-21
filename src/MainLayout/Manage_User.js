@@ -4,7 +4,7 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 
 function Manage_user(){
     return(
-        <Container fluid>
+        <Container fluid className='center-screen'>
             <Row className='Panels'>
                 <Col align='center'>User Panel</Col>
                 <Col align='center'>ModuleGroup permission Panel</Col>

@@ -10,18 +10,14 @@ function MenuBar(){
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
-                    <LinkContainer to='/dash' exact>
+                    <LinkContainer to='/manage-select' exact>
                         <Nav.Link>Home</Nav.Link>
                     </LinkContainer>
+                    <LinkContainer to='/dash' exact>
+                        <Nav.Link>Dashboard</Nav.Link>
+                    </LinkContainer>
                     <Nav.Link>Alert</Nav.Link>
-                    <NavDropdown title="Management" id="basic-nav-dropdown">
-                        <LinkContainer to='/manage-module'>
-                            <NavDropdown.Item>ModuleGroup Management</NavDropdown.Item>
-                        </LinkContainer>
-                        <LinkContainer to='/manage-user'>
-                            <NavDropdown.Item>User Management</NavDropdown.Item>
-                        </LinkContainer>
-                    </NavDropdown>
+                    <Nav.Link>Timer</Nav.Link>
                 </Nav>
                 <Nav>
                     <NavDropdown title = "Account">
