@@ -7,7 +7,7 @@ const ModuleSelect = () => {
 	const { datas } = useContext(ModuleDataContext);
 	const [currentModule, setCurrentModule] = useState('allmodule');
 	console.log("Say my nameee : ", currentModule)
-	console.log('Modules Group: ', datas);
+	console.log('Modules Group datas: ', datas[0].controller);  //here
 	return <div className="moduleSelect">
 				<ModuleSelectHeader />
 				<div className='module-list'>
@@ -19,7 +19,7 @@ const ModuleSelect = () => {
 						</li>
 						{/* fix here */}
 						{datas.map((data) => {
-							console.log(data)
+							console.log("Module Select :",data.controller)
 							return <Module name={data.name}/>;
 						})}
 					</ul>

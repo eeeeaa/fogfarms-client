@@ -7,7 +7,7 @@ const ModuleDataContextProvider = (props) => {
 	const url = 'https://salty-oasis-24147.herokuapp.com';
 	const [datas, setDatas] = useState([]);
 	const info = {
-		module_group_id: 1 //(work) need to match with teh module management.
+		module_group_id: 1 //(unfinished)
 	}
 	useEffect(async () => {
 		await app.post(url + '/dashboard', info).then((res) => {

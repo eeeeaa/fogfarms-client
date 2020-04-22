@@ -1,12 +1,16 @@
 import React, { useContext } from 'react';
 import { ModuleDataContext } from '../../contexts/ModuleDataContext';
+import { Form } from 'react-bootstrap';
 
 const ControllerDetail = ({ datas }) => {
 	return (
 		<li>
-			<div className="controller">which do u controll</div>
-			{/* use dispatch here to send the data */}
-			<div className="button-switch">Toggle button</div>
+			<Form>
+				<Form.Check
+					type="switch"
+					id="custom-switch"
+					label= "This Button"/>
+			</Form>
 		</li>
 	);
 };
