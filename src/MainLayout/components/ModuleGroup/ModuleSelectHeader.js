@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import { ModuleDataContext } from '../../contexts/ModuleDataContext';
 
 const ModuleSelectHeader = () => {
-	const { } = useContext(ModuleDataContext);
+	const {groupName } = useContext(ModuleDataContext);
 	return (
 		<div className="ModuleSelectBox">
-			<p>Module - Module Group xxx</p>
+			<p>Module Group {groupName}</p>
 		</div>
 	);
 };

@@ -3,12 +3,9 @@ import { ModuleDataContext } from '../../contexts/ModuleDataContext';
 
 const Module = ({ name }) => {
 	return (
-		// fix here
-		<li onClick={() => {console.log("Who are U : ", name)}}>
-			<div className="moduleName">
-				{name}
-			</div>
-		</li>
+		<div className="moduleName">
+			{name}
+		</div>
 	);
 };
 
