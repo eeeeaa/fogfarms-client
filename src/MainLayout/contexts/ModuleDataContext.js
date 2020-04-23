@@ -44,7 +44,7 @@ const ModuleDataContextProvider = (props) => {
 	//setting controller and dashboard data
 	useEffect(() => {
 		if (currentModule==='allmodule'){
-			console.log('pick all')
+			console.log('pick all') //clear the state, then use ...state, {add sth}
 		}
 		else{
 			datas.map((key) => {
