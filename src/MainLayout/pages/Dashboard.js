@@ -1,7 +1,6 @@
 import React from 'react';
 import '../../css_sheet/global_theme.css';
 import ModuleSelect from '../components/ModuleGroup/ModuleSelect';
-import ModuleContextProvider from '../contexts/ModuleContext';
 import ModuleControllerHeader from '../components/ModuleController/ModuleControllerHeader';
 import ModuleDataContextProvider from '../contexts/ModuleDataContext';
 import ModuleDataGraph from '../components/ModuleData/ModuleDataGraph';
@@ -16,7 +15,6 @@ const Dashboard = () => {
 			<Container>
 				<Row>
 				<ModuleDataContextProvider>
-				<ModuleContextProvider>
 					<Col>
 						<ModuleSelect />
 					</Col>
@@ -28,7 +26,6 @@ const Dashboard = () => {
 						<ModuleControllerHeader />
 						<ModuleControllerTabs />
 					</Col>
-					</ModuleContextProvider>
 					</ModuleDataContextProvider>
 				</Row>
 			</Container>

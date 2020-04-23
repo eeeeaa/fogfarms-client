@@ -8,7 +8,8 @@ const ModuleControllerList = () => {
 	const allCon = {foggger:cons?.fogger , led:cons?.led ,mixer:cons?.mixer ,solenoid_valve:cons?.solenoid_valve} 
 	return <div className="controller-list">
 				<ul>
-					{console.log("Testing : ",allCon?.fogger)}
+					hi
+					{/* {console.log("Testing : ",allCon?.fogger)} */}
 				</ul>
 			</div>
 };

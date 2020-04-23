@@ -7,8 +7,9 @@ const ModuleDataContextProvider = (props) => {
 	const url = 'https://salty-oasis-24147.herokuapp.com';
 	const [groupName, setGroupName] = useState(1) //not a string, the group id must be a number.
 	const [datas, setDatas] = useState([]); //give every information
-	const [currentModule, setCurrentModule] = useState('allmodule'); //
-	const [controllers, setController] = useState(); //include only controller in that module
+	const [currentModule, setCurrentModule] = useState('allmodule'); //use allmodule as a default
+	const [information, setInformation] = useState([])
+	const [controllers, setControllers] = useState([]); //include only controller in that module
 	const info = {
 		module_group_id: groupName //set which module group to pull data from
 	}
@@ -32,19 +33,28 @@ const ModuleDataContextProvider = (props) => {
 			setDatas(modulesJson);
 		});
 	}, []);
-	
-	const SetController = (module) => {
+
+	const nonae = (module) => {
 		return datas ? (
 			console.log("there's data")
 				) : (
 			console.log("empty data"))
 	}
 
-
+	//setting controller and dashboard data
 	useEffect(() => {
-		console.log("current Module is making a change")
+		if (currentModule==='allmodule'){
+			console.log('pick all')
+		}
+		else{
+			datas.map((key) => {
+				if(key.name === currentModule) {
+					setControllers(key.controller) //a little late when called log here
+				}
+			})
+		}
 		return () => {
-			console.log("perform cleanUP ??")
+			console.log('')
 		}
 	}, [currentModule])
 	

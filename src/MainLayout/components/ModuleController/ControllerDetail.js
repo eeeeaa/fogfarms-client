@@ -3,7 +3,6 @@ import { ModuleDataContext } from '../../contexts/ModuleDataContext';
 import { Form } from 'react-bootstrap';
 
 const ControllerDetail = ({ con }) => {
-	console.log("Controller : ", con);
 	return (
 		<li>
 			<Form>

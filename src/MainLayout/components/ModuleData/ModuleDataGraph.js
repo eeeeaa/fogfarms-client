@@ -4,8 +4,6 @@ import { Row, Col } from 'react-bootstrap';
 
 const ModuleDataGraph = () => {
 	const { datas } = useContext(ModuleDataContext);
-	console.log("Datas Check : ",datas)
-	console.log("Datas Check array: ",datas[0])
 	return (
 		<div className="graph-data">
 			<Row>
