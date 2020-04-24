@@ -4,8 +4,7 @@ import Module from './Module';
 import ModuleSelectHeader from './ModuleSelectHeader';
 
 const ModuleSelect = () => {
-	const { datas, currentModule, setCurrentModule } = useContext(ModuleDataContext);
-	// console.log('Modules Group datas: ', datas[0]?.controller); but whyyyyyyy
+	const { datas, currentModule, setCurrentModule} = useContext(ModuleDataContext);
 	return <div className="moduleSelect">
 				<ModuleSelectHeader />
 				<div className='module-list'>

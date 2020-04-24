@@ -1,29 +1,22 @@
 import React, { useContext, useState } from 'react';
-import ControllerDetail from './ControllerDetail';
 import { ModuleDataContext } from '../../contexts/ModuleDataContext';
 
 const ModuleControllerList = () => {
-	const { controllers } = useContext(ModuleDataContext);
-	const fogger = controllers.fogger
-	const led = controllers.led
-	const mixer = controllers.mixer
-	const solenoid_valve = controllers.solenoid_valve
-	const [test, setTest] = useState([false,false])
-	console.log("Controllers : ", test)
-	// setTest([true,false])
-	// console.log("Controllers : ", test)
-	
+	const { controllers, foggers, leds, mixers, solenoid_valves } = useContext(ModuleDataContext);
 	return <div className="controller-list">
 				<ul>
-					hi
-					{/* {console.log("Testing : ",allCon?.fogger)} */}
+					{
+					solenoid_valves?.map((x,y)=> {
+						console.log("valves : ",solenoid_valves)
+						return <span>
+							<h6 className="control-equip">Valves {y}</h6>
+							<input type="checkbox" className="slide"></input>
+						</span>
+						
+					})
+					}
 				</ul>
 			</div>
 };
 
 export default ModuleControllerList;
-
-{/* {allCon?.map((con) => {
-						console.log(con)
-						return <ControllerDetail con={con} />;
-					})} */}

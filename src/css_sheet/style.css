@@ -1,41 +1,3 @@
-/* * {
-    margin: 0;
-    padding: 0;
-}
-#nav-bar {
-    position: sticky;
-    top: 0;
-    z-index:10;
-}
-
-.navbar-brand {
-    height: 40px;
-    padding: 30px;
-}
-
-.navbar-nav li {
-    padding : 0 10px;
-}
-
-.navbar-nav li a {
-    float: right;
-    text-align: left;
-    background-color: #20223C;
-
-}
-
-#nav-bar ul li a:hover{
-    background-color: #0C0E1A!important;
-}
-
-#nav-bar ul li a{
-    color: white;
-} */
-
-* {
-    margin: 0;
-    padding: 0;
-}
 .nav-bar {
     position: sticky;
     top: 0;
@@ -46,7 +8,6 @@
     text-align: left;
     background-color: #20223c;
     margin: 5px 20px 5px 20px;
-    padding: 5px 20px 5px 20px;
 }
 
 #nav-bar ul li a:hover {
@@ -61,3 +22,120 @@
     background-color: #20223c ;
 }
 
+.container {
+	width: 100%; 
+	margin-right: auto;
+    margin-left: auto;  
+    margin-top: 1%;
+}
+
+.info {
+    margin-top: 2%;
+	width: 45%;
+	float: left;
+	margin-left: 2%;
+}
+
+.module-group {
+	width: 24%;
+	float:left;
+	margin-left: 2%;
+}
+
+.control {
+	width: 24%;
+	float:left;
+	margin-left: 2%;
+}
+
+.row , .row3 {
+	width: 100%;
+}
+
+.row3 .control, .row3 .info, .row3 .module-group {
+    height: 500px;
+    /* ไปแก้ทีหลังนะ height */
+    background-color: #31333F;
+    text-align: center;
+} 
+
+.topic {
+    color: white;
+    background-color: #5D6172;
+    margin-top: auto;
+    padding: 13%;
+}
+
+.topic1 {
+    color: white;
+    margin-left: %;
+    margin-top: 5%;
+}
+
+.module {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: smaller;
+    background: #2A2C3B;
+    color: white;
+    border-radius: 10px;
+    border-color: green;
+    border-style: solid;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 80%;
+    border-width: thin;
+}
+
+.module:hover {
+    background-color: #737BA2;
+}
+
+.slide{
+    transform: translate(-50%,-50%);
+    float: right;
+    margin-top: 15px;
+}
+
+input[type="checkbox"] {
+    
+    width: 40px;
+    height: 20px;
+    -webkit-appearance: none;
+    background: #c6c6c6;
+    outline: none;
+    border-radius: 20px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,.2);
+    transition: .5s;
+}
+
+input:checked[type="checkbox"]{
+    background: #03a9f4;
+}
+
+input[type="checkbox"]:before {
+    content: ' ';
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    top: 0;
+    left: 0;
+    background: #fff;
+    transform: scale(1.1);
+    transition: .5s;
+}
+
+input:checked[type="checkbox"]:before {
+    left:20px
+}
+
+.control-equip {
+    color: white;
+    float: left;
+    margin-left: 20px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    font-weight: lighter;
+    font-size: smaller;
+}
