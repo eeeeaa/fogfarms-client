@@ -25,7 +25,7 @@ function Login(props) {
 		};
 		app.post(serverName + '/auth/sign_in', data).then((res) => {
       console.log(res);
-      if(res.data === "Operation: Authenticate Sign In; Successful"){
+      if(res.status === 200){
         console.log("logging in")
         props.history.push('/main');
       }else{
