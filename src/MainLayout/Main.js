@@ -7,19 +7,22 @@ import Management_select from './pages/Manage_Select';
 import Manage_user from './pages/Manage_User';
 import Manage_module from './pages/Manage_Module';
 import Manage_plant from './pages/Manage_plant';
+import ModuleDataContextProvider from './contexts/ModuleDataContext';
 
 const Menu = () => {
 	return (
 		<Router>
 			<MenuBar />
-			<Switch>
-				<Route path="/" exact component={Login} />
-				<Route path="/dashboard" component={Dashboard} />
-				<Route path="/management_select" component={Management_select} />
-				<Route path="/management/module" component={Manage_module} />
-				<Route path="/management/user" component={Manage_user} />
-				<Route path="/management/plant" component={Manage_plant} />
-			</Switch>
+			<ModuleDataContextProvider>
+				<Switch>
+					<Route path="/" exact component={Login} />
+					<Route path="/dashboard" component={Dashboard} />
+					<Route path="/management_select" component={Management_select} />
+					<Route path="/management/module" component={Manage_module} />
+					<Route path="/management/user" component={Manage_user} />
+					<Route path="/management/plant" component={Manage_plant} />
+				</Switch>
+			</ModuleDataContextProvider>
 		</Router>
 	);
 };

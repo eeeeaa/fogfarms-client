@@ -1,11 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import ControllerDetail from './ControllerDetail';
 import { ModuleDataContext } from '../../contexts/ModuleDataContext';
 
 const ModuleControllerList = () => {
-	const { datas } = useContext(ModuleDataContext);
-	const cons = datas[0]?.controller;
-	const allCon = {foggger:cons?.fogger , led:cons?.led ,mixer:cons?.mixer ,solenoid_valve:cons?.solenoid_valve} 
+	const { controllers } = useContext(ModuleDataContext);
+	const fogger = controllers.fogger
+	const led = controllers.led
+	const mixer = controllers.mixer
+	const solenoid_valve = controllers.solenoid_valve
+	const [test, setTest] = useState([false,false])
+	console.log("Controllers : ", test)
+	// setTest([true,false])
+	// console.log("Controllers : ", test)
+	
 	return <div className="controller-list">
 				<ul>
 					hi

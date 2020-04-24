@@ -14,8 +14,8 @@ const ModuleDataContextProvider = (props) => {
 		module_group_id: groupName //set which module group to pull data from
 	}
 
-	const fetchSetData = (url, groupID) => {
-		app.post(url + '/dashboard', groupID).then((res) => {
+	const fetchPost = (parameter, groupID) => {
+		app.post(url + parameter, groupID).then((res) => {
 			const recieveData = res.data;
 			const modulesJson = Object.keys(recieveData).map((key, i) => {
 				return { ...recieveData[key], "name":key};
@@ -24,15 +24,21 @@ const ModuleDataContextProvider = (props) => {
 		});
 	}
 	
-	useEffect(() => {	//will use fetchSetData instead, have to change after modulegroupmng is done.
-		app.post(url + '/dashboard', info).then((res) => {
-			const recieveData = res.data;
-			const modulesJson = Object.keys(recieveData).map((key, i) => {
-				return { ...recieveData[key], "name":key};
-			});
-			setDatas(modulesJson);
-		});
-	}, []);
+	// useEffect(() => {	//will use fetchSetData instead, have to change after modulegroupmng is done.
+	// 	app.post(url + '/dashboard', info).then((res) => {
+	// 		const recieveData = res.data;
+	// 		const modulesJson = Object.keys(recieveData).map((key, i) => {
+	// 			return { ...recieveData[key], "name":key};
+	// 		});
+	// 		setDatas(modulesJson);
+	// 	});
+	// }, []);
+
+	useEffect(() => { //might help with the re-rendering?
+		console.log('hi')
+	}, [datas])
+
+
 
 	const nonae = (module) => {
 		return datas ? (
@@ -58,7 +64,7 @@ const ModuleDataContextProvider = (props) => {
 		}
 	}, [currentModule])
 	
-	return <ModuleDataContext.Provider value={{ datas, currentModule, setCurrentModule, groupName }}>{props.children}</ModuleDataContext.Provider>;
+	return <ModuleDataContext.Provider value={{ datas, currentModule, setCurrentModule, groupName, controllers, fetchPost }}>{props.children}</ModuleDataContext.Provider>;
 };
 
 export default ModuleDataContextProvider;
