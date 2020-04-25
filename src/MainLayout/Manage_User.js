@@ -53,6 +53,25 @@ class Manage_user extends React.Component{
             console.log(error.message);
           })
       }
+      handleDelete(){
+        const cuser = this.state.current_user;
+        console.log("user to be deleted ",cuser)
+        app.post(serverName + '/user_management/delete',
+        {"username": cuser},{headers:{"Content-Type" : "application/json"}}
+        )
+        .then(res => {
+                  console.log(res);
+                  console.log(res.data);
+                  if (res.status === 200) {
+                        this.setState({current_user:''});
+                       this.callData();
+                       this.setState({show_del_dialog:false});
+                  }
+          }).catch(error => {
+               this.setState({show_alert:true});
+               console.log(error.message);
+          })
+        }
       display_permission(key){
         switch (key){
             case 0: return 'None';break;
@@ -99,21 +118,6 @@ class Manage_user extends React.Component{
         );
       }
       DeleteDialog(props) {
-        const handleDelete = () => {
-            app.post(serverName + '/user_management/delete',
-            {"username": this.state.current_user},{headers:{"Content-Type" : "application/json"}}
-            )
-            .then(res => {
-                      console.log(res);
-                      console.log(res.data);
-                      /* if (res.status === 200) {
-                           this.callData();
-                      } */
-              }).catch(error => {
-                   this.setState({show_alert:true});
-                   console.log(error.message);
-              })
-        }
         return (
           <Modal
             {...props}
@@ -127,11 +131,10 @@ class Manage_user extends React.Component{
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                You are about to delete user {props.children} !
+                {props.children}
             </Modal.Body>
             <Modal.Footer>
-                <Button variant='danger' onClick={()=>handleDelete}>Delete</Button>
-              <Button onClick={props.onHide}>Close</Button>
+              <Button onClick={props.onHide}>Cancel</Button>
             </Modal.Footer>
           </Modal>
         );
@@ -219,7 +222,12 @@ class Manage_user extends React.Component{
                                             onHide={() => this.setState({show_usr_create:false})}/>
                     <this.DeleteDialog
                         show={this.state.show_del_dialog}
-                        onHide={()=>this.setState({show_del_dialog:false})}>{this.state.current_user}</this.DeleteDialog>
+                        onHide={()=>this.setState({show_del_dialog:false})}>
+                            You are about to delete user {this.state.current_user} !
+                            <Button variant='danger' onClick={this.handleDelete.bind(this)}>
+                                Delete
+                            </Button>
+                            </this.DeleteDialog>
                     
                 </Col>
             </Row>

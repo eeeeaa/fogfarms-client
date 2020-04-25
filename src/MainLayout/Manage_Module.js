@@ -9,10 +9,36 @@ const serverName = "https://salty-oasis-24147.herokuapp.com"
 class Manage_module extends React.Component{
     constructor(props) {
       super(props);
-      this.state = {module_groups: [],current_group : '',plants:[],module_to_move:-1,show_move:false,show_create:false};
+      this.state = {
+        module_groups: [],
+        current_group : '',
+        plants:[],
+        module_to_move:-1,
+        show_move:false,
+        show_create:false,
+
+        plant_id:0,
+        location_id:-1,
+        tds:-1.0,
+        ph:-1.0,
+        humidity:-1.0,
+        on_auto:true,
+        module_group_label:'',
+        lights_off_hour:-1.0,
+        lights_on_hour:-1.0
+      };
       // This binding is necessary to make `this` work in the callback
       this.handleClick = this.handleClick.bind(this);
+      this.handleChange = this.handleChange.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
     }
+      validateForm(){
+        const bool_result = (this.state.plant_id >-1 && this.state.location_id>-1 && 
+          this.state.tds>-1.0 && this.state.ph>-1.0 && this.state.humidity >-1.0 && this.state.module_group_label.length > 0
+          && this.state.lights_off_hour >-1.0 && this.state.lights_on_hour >-1.0);
+        console.log("boolean",bool_result);
+        return  bool_result;
+      }
     
       componentDidMount() {
         this.callData();
@@ -68,6 +94,13 @@ class Manage_module extends React.Component{
                     }
       })
       }
+      handleChange = e => {
+        this.setState({ [e.target.name]: e.target.value });
+        console.log(e.target.name,e.target.value)
+      };
+      handleSubmit(event){
+        console.log(event);
+      }
       CreateModuleModal(props){
         return(
           <Modal
@@ -95,54 +128,7 @@ class Manage_module extends React.Component{
                 "lights_on_hour":float64 */
             
               }
-              <Form>
-                        <Form.Group>
-                            <Form.Label>Plants</Form.Label>
-                            <Form.Control as="select">
-                                {props.children}
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>location id</Form.Label>
-                            <Form.Control placeholder="username" />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>TDS</Form.Label>
-                            <Form.Control placeholder="0.0" />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>PH</Form.Label>
-                            <Form.Control  placeholder="0.0" />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Humidity</Form.Label>
-                            <Form.Control placeholder="0.0" />
-                        </Form.Group>
-                        <Form.Group>
-                          <Form.Label>Automation</Form.Label>
-                          <Form.Control as="select">
-                              <option>True</option>
-                              <option>False</option>
-                          </Form.Control>
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Group Label</Form.Label>
-                            <Form.Control type="string" placeholder="groupname" />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Light off hour</Form.Label>
-                            <Form.Control  placeholder= "0.0" />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Light on hour</Form.Label>
-                            <Form.Control  placeholder="0.0" />
-                        </Form.Group>
-
-                        
-                        <Button variant="primary" type="submit">
-                            Submit
-                         </Button>
-                    </Form>
+              {props.children}
             </Modal.Body>
           </Modal>
         );
@@ -283,15 +269,69 @@ class Manage_module extends React.Component{
                 <this.CreateModuleModal
                                 show={this.state.show_create}
                                 onHide={() => this.setState({show_create:false})}>
-                {
+                
+                <Form>
+                        <Form.Group>
+                            <Form.Label>Plants</Form.Label>
+                            <Form.Control as="select"
+                              name = 'plant_id'
+                              onChange = {this.handleChange.bind(this)}
+                            >
+                              {
 
-                  Object.keys(this.state.plants)
-                    .map(item =>
-                      <option>
-                        {this.state.plants[item].name}
-                      </option>
-                    )
-                }
+                                Object.keys(this.state.plants)
+                                    .map(item =>
+                                    <option value={this.state.plants[item].plant_id}>
+                                      {this.state.plants[item].name}
+                                    </option>
+                                    )
+                              }
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>location id</Form.Label>
+                            <Form.Control 
+                              name = 'location_id'
+                              onChange = {this.handleChange.bind(this)}
+                              placeholder="username" />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>TDS</Form.Label>
+                            <Form.Control placeholder="0.0" />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>PH</Form.Label>
+                            <Form.Control  placeholder="0.0" />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Humidity</Form.Label>
+                            <Form.Control placeholder="0.0" />
+                        </Form.Group>
+                        <Form.Group>
+                          <Form.Label>Automation</Form.Label>
+                          <Form.Control as="select">
+                              <option>True</option>
+                              <option>False</option>
+                          </Form.Control>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Group Label</Form.Label>
+                            <Form.Control type="string" placeholder="groupname" />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Light off hour</Form.Label>
+                            <Form.Control  placeholder= "0.0" />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Light on hour</Form.Label>
+                            <Form.Control  placeholder="0.0" />
+                        </Form.Group>
+
+                        
+                        <Button variant="primary" disabled={!this.validateForm()} type="submit" >
+                            Submit
+                         </Button>
+                    </Form>
                                               
                 </this.CreateModuleModal>
             </Row>
