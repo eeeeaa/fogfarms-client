@@ -9,7 +9,7 @@ const serverName = "https://salty-oasis-24147.herokuapp.com"
 class Manage_user extends React.Component{
     constructor(props) {
       super(props);
-      this.state = {users: [],current_user:'',current_group:'',show_usr_create:false,show_alert:false};
+      this.state = {users: [],current_user:'',current_group:'',show_usr_create:false,show_alert:false,show_del_dialog:false};
       // This binding is necessary to make `this` work in the callback
       this.handleClick = this.handleClick.bind(this);
       this.handleSelect = this.handleSelect.bind(this);
@@ -63,21 +63,6 @@ class Manage_user extends React.Component{
             default: return 'whattt';break;
          }
       }
-      handleDelete(){
-          app.post(serverName + '/user_management/delete',
-          {"username": this.state.current_user},{headers:{"Content-Type" : "application/json"}}
-          )
-          .then(res => {
-                    console.log(res);
-                    console.log(res.data);
-                    if (res.status === 200) {
-                         this.callData();
-                    }
-            }).catch(error => {
-                 this.setState({show_alert:true});
-                 console.log(error.message);
-            })
-      }
       RegisterUserModal(props) {
         return (
           <Modal
@@ -109,6 +94,44 @@ class Manage_user extends React.Component{
             </Modal.Body>
             <Modal.Footer>
               {/* <Button onClick={props.onHide}>Close</Button> */}
+            </Modal.Footer>
+          </Modal>
+        );
+      }
+      DeleteDialog(props) {
+        const handleDelete = () => {
+            app.post(serverName + '/user_management/delete',
+            {"username": this.state.current_user},{headers:{"Content-Type" : "application/json"}}
+            )
+            .then(res => {
+                      console.log(res);
+                      console.log(res.data);
+                      /* if (res.status === 200) {
+                           this.callData();
+                      } */
+              }).catch(error => {
+                   this.setState({show_alert:true});
+                   console.log(error.message);
+              })
+        }
+        return (
+          <Modal
+            {...props}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+          >
+            <Modal.Header closeButton>
+              <Modal.Title id="contained-modal-title-vcenter">
+                 Warning!
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                You are about to delete user {props.children} !
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant='danger' onClick={()=>handleDelete}>Delete</Button>
+              <Button onClick={props.onHide}>Close</Button>
             </Modal.Footer>
           </Modal>
         );
@@ -188,12 +211,15 @@ class Manage_user extends React.Component{
                     <Button variant='dark' onClick={() => this.setState({show_usr_create:true})}>
                         Register new user  
                     </Button>
-                    <Button variant='warning' onClick={this.handleDelete}>
+                    <Button variant='warning' onClick={()=>this.setState({show_del_dialog:true})}>
                         Delete currently selected user
                     </Button>
                     <this.RegisterUserModal
                                             show={this.state.show_usr_create}
                                             onHide={() => this.setState({show_usr_create:false})}/>
+                    <this.DeleteDialog
+                        show={this.state.show_del_dialog}
+                        onHide={()=>this.setState({show_del_dialog:false})}>{this.state.current_user}</this.DeleteDialog>
                     
                 </Col>
             </Row>

@@ -135,7 +135,7 @@ class Manage_module extends React.Component{
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Light on hour</Form.Label>
-                            <Form.Control  placeholder="username" />
+                            <Form.Control  placeholder="0.0" />
                         </Form.Group>
 
                         
