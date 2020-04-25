@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { ModuleDataContext } from '../../contexts/ModuleDataContext';
 
-const ModuleDataDetail = ({  }) => {
+const ModuleDataDetail = () => {
 	const {datas } = useContext(ModuleDataContext);
 	return (
 		<li>

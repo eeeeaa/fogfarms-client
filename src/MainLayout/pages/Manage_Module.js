@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import '../../css_sheet/global_theme.css';
 import SignOutButton from '../TestFunction/QuickSignOut';
 

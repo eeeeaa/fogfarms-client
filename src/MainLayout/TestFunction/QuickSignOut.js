@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import app from '../functions/axiosConfig';
 import { useHistory } from 'react-router-dom';
 

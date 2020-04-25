@@ -1,5 +1,4 @@
-import React, { useContext, useState } from 'react';
-import { ModuleDataContext } from '../../contexts/ModuleDataContext';
+import React from 'react';
 
 const Module = ({ name }) => {
 	return (

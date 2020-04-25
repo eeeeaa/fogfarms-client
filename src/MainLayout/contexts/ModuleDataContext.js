@@ -8,7 +8,6 @@ const ModuleDataContextProvider = (props) => {
   const [groupName, setGroupName] = useState(1); //not a string, the group id must be a number.
   const [datas, setDatas] = useState([]); //give every information
   const [currentModule, setCurrentModule] = useState("allmodule"); //use allmodule as a default
-  const [information, setInformation] = useState([]);
 
   const info = {
     module_group_id: groupName, //set which module group to pull data from

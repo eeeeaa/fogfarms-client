@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { ModuleDataContext } from "../../contexts/ModuleDataContext";
 import Module from "./Module";
 import ModuleSelectHeader from "./ModuleSelectHeader";
