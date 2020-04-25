@@ -2,26 +2,29 @@ import React from 'react';
 import axios from 'axios';
 import app from '../axiosConfig';
 import '../css_sheet/global_theme.css';
-import { Container, Row, Col, Card, ListGroup,ListGroupItem, Button,Tooltip,Modal,Dropdown,Alert,Form } from 'react-bootstrap';
+import { Container, Row, Col, Card, ListGroup,ListGroupItem, Button,Tooltip,Modal,Dropdown,Alert,Form,ButtonGroup } from 'react-bootstrap';
 
 const serverName = "https://salty-oasis-24147.herokuapp.com"
 
 class Manage_user extends React.Component{
     constructor(props) {
       super(props);
-      this.state = {users: [],current_user:'',current_group:'',show_usr_create:false};
+      this.state = {users: [],current_user:'',current_group:'',show_usr_create:false,show_alert:false};
       // This binding is necessary to make `this` work in the callback
       this.handleClick = this.handleClick.bind(this);
       this.handleSelect = this.handleSelect.bind(this);
     }
     
       componentDidMount() {
+        this.callData();
+      }
+      callData(){
         app.get(serverName + "/user_management")
-          .then(res => {
-            const usr_data = res.data;
-            this.setState({users:usr_data});
-            console.log("state", this.state.users)
-          }).catch(error => console.log(error))
+        .then(res => {
+          const usr_data = res.data;
+          this.setState({users:usr_data});
+          console.log("state", this.state.users)
+        }).catch(error => console.log(error))
       }
       handleClick(item) {
         this.setState({current_user:item});
@@ -29,25 +32,26 @@ class Manage_user extends React.Component{
       }
       handleSelect(eventKey,event){
           console.log("user: ",this.state.current_user,"group:",this.state.current_group,"key: ",eventKey);
-          app.post(serverName + '/user_management/assign', {  
-            "username":this.state.current_user,
-	        "module_group_label":this.state.current_group,
-	        "permission_level":eventKey
-          })
+          const cuser = this.state.current_user;
+          const cgroup = this.state.current_group;
+          const level = parseInt(eventKey)
+          app.post(serverName + '/user_management/assign',
+          {
+            "username": cuser,
+	        "module_group_label": cgroup,
+	        "permission_level": level
+          }
+          ,{headers:{"Content-Type" : "application/json"}})
               .then(res => {
                       console.log(res);
                       console.log(res.data);
                       if (res.status === 200) {
                         this.callData();
                       }
-                      else{
-                        return(
-                          <Alert variant={'danger'}>
-                            permission setting unsuccessful!
-                          </Alert>
-                        )
-                      }
-        })
+        }).catch(error => {
+            this.setState({show_alert:true});
+            console.log(error.message);
+          })
       }
       display_permission(key){
         switch (key){
@@ -58,6 +62,21 @@ class Manage_user extends React.Component{
             case 4: return 'Adminstrator';break;
             default: return 'whattt';break;
          }
+      }
+      handleDelete(){
+          app.post(serverName + '/user_management/delete',
+          {"username": this.state.current_user},{headers:{"Content-Type" : "application/json"}}
+          )
+          .then(res => {
+                    console.log(res);
+                    console.log(res.data);
+                    if (res.status === 200) {
+                         this.callData();
+                    }
+            }).catch(error => {
+                 this.setState({show_alert:true});
+                 console.log(error.message);
+            })
       }
       RegisterUserModal(props) {
         return (
@@ -107,6 +126,9 @@ class Manage_user extends React.Component{
         return(
             
             <Container fluid className='center-screen'>
+            <Alert variant={'danger'} show = {this.state.show_alert} onClose ={()=>this.setState({show_alert:false})} dismissible>
+                    Operation unsuccessful!
+            </Alert>
             <Row className='Panels'>
                 <Col align='center'>
                     <Card style={{ width: '40rem' }}>
@@ -162,13 +184,17 @@ class Manage_user extends React.Component{
                 </Col>
             </Row>
             <Row>
-                <Col align='left'>
+                <Col align='center'>
                     <Button variant='dark' onClick={() => this.setState({show_usr_create:true})}>
                         Register new user  
+                    </Button>
+                    <Button variant='warning' onClick={this.handleDelete}>
+                        Delete currently selected user
                     </Button>
                     <this.RegisterUserModal
                                             show={this.state.show_usr_create}
                                             onHide={() => this.setState({show_usr_create:false})}/>
+                    
                 </Col>
             </Row>
         </Container>

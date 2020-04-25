@@ -7,3 +7,17 @@
     text-align: center;
     min-height: 100vh;
   }
+  .center-vertical{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    min-height: 100vh;
+  }
+  .center-normal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    min-height: 100vh;
+  }

@@ -17,7 +17,7 @@ class Manage_plant extends React.Component{
       componentDidMount() {
         app.get(serverName + "/plant_management")
           .then(res => {
-            const plt_data = res.data;
+            const plt_data = res.data.Data;
             this.setState({plants:plt_data});
             console.log("state", this.state.plants)
           }).catch(error => console.log(error))
@@ -72,12 +72,13 @@ class Manage_plant extends React.Component{
                         </Card.Body>
                         <ListGroup variant="dark">
                             {/*Users*/}
-                            { 
-                            Object.keys(this.state.plants)
-                            .map(item => 
-                                <ListGroupItem action onClick={() => this.handleClick(item)}>
-                                  {item}
-                                  </ListGroupItem>, this)
+                            {
+                                Object.keys(this.state.plants)
+                                .map(item =>
+                                        <ListGroupItem action onCLick={()=>this.handleClick(item)}>
+                                            {this.state.plants[item].name}
+                                        </ListGroupItem>
+                                    )
                             }
                         </ListGroup>
                         
