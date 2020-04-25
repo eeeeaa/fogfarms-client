@@ -14,17 +14,6 @@ const ModuleDataContextProvider = (props) => {
     module_group_id: groupName, //set which module group to pull data from
   };
 
-  // const fetchPost = (parameter, groupID) => {
-  // 	app.post(url + parameter, groupID).then((res) => {
-  // 		const recieveData = res.data;
-  // 		const modulesJson = Object.keys(recieveData).map((key, i) => {
-  // 			return { ...recieveData[key], "name":key};
-  // 		});
-  // 		console.log(modulesJson)
-  // 		setDatas(modulesJson);
-  // 	});
-  // }
-
   //calling the data upfront.
   useEffect(() => {
     loadData();
@@ -48,8 +37,7 @@ const ModuleDataContextProvider = (props) => {
         setCurrentModule,
         groupName,
         loadData,
-        sensorModule: datas.find((key) => key.name === currentModule)
-          ?.sensor_module,
+        sensorModule: datas.find((key) => key.name === currentModule)?.sensor_module,
         controller: datas.find((key) => key.name === currentModule)?.controller,
       }}
     >

@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
 export const ConfirmationModal = ({
-  title = "Confirm",
+  title = "Confirm", //by default if no para is pass
   show,
   onHide,
   onConfirm,

@@ -4,9 +4,7 @@ import Module from "./Module";
 import ModuleSelectHeader from "./ModuleSelectHeader";
 
 const ModuleSelect = () => {
-  const { datas, currentModule, setCurrentModule } = useContext(
-    ModuleDataContext
-  );
+  const { datas, setCurrentModule } = useContext(ModuleDataContext);
   return (
     <div className="moduleSelect">
       <ModuleSelectHeader />
