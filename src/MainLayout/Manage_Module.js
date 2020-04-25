@@ -2,19 +2,22 @@ import React from 'react';
 import axios from 'axios';
 import app from '../axiosConfig';
 import '../css_sheet/global_theme.css';
-import { Container, Row, Col, Card, ListGroup,ListGroupItem, Button,Tooltip,OverlayTrigger,Modal } from 'react-bootstrap';
+import { Container, Row, Col, Card, ListGroup,ListGroupItem, Button,Tooltip,OverlayTrigger,Modal,Alert,Form } from 'react-bootstrap';
 
 const serverName = "https://salty-oasis-24147.herokuapp.com"
 
 class Manage_module extends React.Component{
     constructor(props) {
       super(props);
-      this.state = {module_groups: [],current_group : '',move_to_group:'',module_to_move:'',show_move:false,show_create:false};
+      this.state = {module_groups: [],current_group : '',module_to_move:-1,show_move:false,show_create:false};
       // This binding is necessary to make `this` work in the callback
       this.handleClick = this.handleClick.bind(this);
     }
     
       componentDidMount() {
+        this.callData();
+      }
+      callData(){
         app.get(serverName + "/modulegroup_management")
           .then(res => {
             const mod_data = res.data;
@@ -33,10 +36,61 @@ class Manage_module extends React.Component{
         console.log("current module",module);
         
       }
-      handleMove(item){
-        const selected = item;
-        this.setState({move_to_group:selected})
-        console.log("want to move " + this.state.module_to_move + " to module group " + this.state.move_to_group)
+      handleMove(dest_group){
+        console.log("want to move " + this.state.module_to_move + " to module group " + dest_group)
+        console.log(this.state.module_groups)
+        app.post(serverName + '/modulegroup_management/assign', {  
+          "module_group_ids": dest_group,
+          "module_ids": [this.state.module_to_move]
+        })
+            .then(res => {
+                    console.log(res);
+                    console.log(res.data);
+                    if (res.status === 200) {
+                      this.callData();
+                      this.setState({show_move:false});
+                    }
+                    else{
+                      return(
+                        <Alert variant={'danger'}>
+                          assignment unsuccessful!
+                        </Alert>
+                      )
+                    }
+      })
+      }
+      CreateModuleModal(props){
+        return(
+          <Modal
+            {...props}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+          >
+            <Modal.Header closeButton>
+              <Modal.Title id="contained-modal-title-vcenter">
+                 Create Module group
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              {/*parameters form*/}
+              <Form>
+                        <Form.Group controlId="formBasicEmail">
+                            <Form.Label>Username</Form.Label>
+                            <Form.Control type="string" placeholder="username" />
+                        </Form.Group>
+
+                        <Form.Group controlId="formBasicPassword">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" placeholder="Password" />
+                        </Form.Group>
+                        <Button variant="primary" type="submit">
+                            Submit
+                         </Button>
+                    </Form>
+            </Modal.Body>
+          </Modal>
+        );
       }
       MyVerticallyCenteredModal(props) {
         return (
@@ -57,7 +111,7 @@ class Manage_module extends React.Component{
               }
             </Modal.Body>
             <Modal.Footer>
-              <Button onClick={props.onHide}>Close</Button>
+              {/* <Button onClick={props.onHide}>Close</Button> */}
             </Modal.Footer>
           </Modal>
         );
@@ -131,7 +185,7 @@ class Manage_module extends React.Component{
                               Object.keys(this.state.module_groups)
                                 .sort((a, b) => this.state.module_groups[a].module_group_id - this.state.module_groups[b].module_group_id)
                                 .map(item => 
-                                <ListGroupItem action onClick={() => this.handleMove(item)}>
+                                <ListGroupItem action onClick={() => this.handleMove(this.state.module_groups[item].module_group_id)}>
                                   {this.state.module_groups[item].module_group_id === 0 ? 'Unassigned': item}
                                 </ListGroupItem>, this)
                               }
@@ -146,11 +200,14 @@ class Manage_module extends React.Component{
                     <Button variant='dark'>
                         Enter
                     </Button>
-                    <Button variant='dark'>
-                        assign  
+                    <Button variant='dark' onClick={() => this.setState({show_create:true})}>
+                        Create new module group
+                        
                     </Button>
+                    <this.CreateModuleModal
+                                            show={this.state.show_create}
+                                            onHide={() => this.setState({show_create:false})}/>
                 </Col>
-                <Col align='center'>Trash</Col>
             </Row>
         </Container>
         );

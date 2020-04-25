@@ -2,16 +2,17 @@ import React from 'react';
 import axios from 'axios';
 import app from '../axiosConfig';
 import '../css_sheet/global_theme.css';
-import { Container, Row, Col, Card, ListGroup,ListGroupItem, Button,Tooltip,OverlayTrigger,Modal } from 'react-bootstrap';
+import { Container, Row, Col, Card, ListGroup,ListGroupItem, Button,Tooltip,Modal,Dropdown,Alert,Form } from 'react-bootstrap';
 
 const serverName = "https://salty-oasis-24147.herokuapp.com"
 
 class Manage_user extends React.Component{
     constructor(props) {
       super(props);
-      this.state = {users: [],current_user:''};
+      this.state = {users: [],current_user:'',current_group:'',show_usr_create:false};
       // This binding is necessary to make `this` work in the callback
       this.handleClick = this.handleClick.bind(this);
+      this.handleSelect = this.handleSelect.bind(this);
     }
     
       componentDidMount() {
@@ -23,11 +24,42 @@ class Manage_user extends React.Component{
           }).catch(error => console.log(error))
       }
       handleClick(item) {
-        const id = item;
-        this.setState({current_user:id});
+        this.setState({current_user:item});
         console.log("current user",this.state.current_user);
       }
-      MyVerticallyCenteredModal(props) {
+      handleSelect(eventKey,event){
+          console.log("user: ",this.state.current_user,"group:",this.state.current_group,"key: ",eventKey);
+          app.post(serverName + '/user_management/assign', {  
+            "username":this.state.current_user,
+	        "module_group_label":this.state.current_group,
+	        "permission_level":eventKey
+          })
+              .then(res => {
+                      console.log(res);
+                      console.log(res.data);
+                      if (res.status === 200) {
+                        this.callData();
+                      }
+                      else{
+                        return(
+                          <Alert variant={'danger'}>
+                            permission setting unsuccessful!
+                          </Alert>
+                        )
+                      }
+        })
+      }
+      display_permission(key){
+        switch (key){
+            case 0: return 'None';break;
+            case 1: return 'Monitor';break;
+            case 2: return 'Control';break;
+            case 3: return 'Supervisor';break;
+            case 4: return 'Adminstrator';break;
+            default: return 'whattt';break;
+         }
+      }
+      RegisterUserModal(props) {
         return (
           <Modal
             {...props}
@@ -41,12 +73,23 @@ class Manage_user extends React.Component{
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              {
-                props.children
-              }
+                    <Form>
+                        <Form.Group controlId="formBasicEmail">
+                            <Form.Label>Username</Form.Label>
+                            <Form.Control type="string" placeholder="username" />
+                        </Form.Group>
+
+                        <Form.Group controlId="formBasicPassword">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" placeholder="Password" />
+                        </Form.Group>
+                        <Button variant="primary" type="submit">
+                            Submit
+                         </Button>
+                    </Form>
             </Modal.Body>
             <Modal.Footer>
-              <Button onClick={props.onHide}>Close</Button>
+              {/* <Button onClick={props.onHide}>Close</Button> */}
             </Modal.Footer>
           </Modal>
         );
@@ -80,13 +123,12 @@ class Manage_user extends React.Component{
                                   </ListGroupItem>, this)
                             }
                         </ListGroup>
-                        
                     </Card>
                 </Col>
                 <Col align='center'>
                     <Card style={{ width: '40rem' }}>
                         <Card.Body>
-                            <Card.Title>Module groups</Card.Title>
+                            <Card.Title>Module group permission level</Card.Title>
                         </Card.Body>
                         <ListGroup variant="dark">
                           {/*module group permission levels*/}
@@ -94,9 +136,22 @@ class Manage_user extends React.Component{
                             this.state.current_user !== '' ?
                             Object.keys(this.state.users[this.state.current_user])
                             .map(item =>
+                                item !== "null" ? 
                                 <ListGroupItem>
-                                    {item}
-                                </ListGroupItem>, this
+                                <Dropdown style={{width : '100%'}} drop= 'right' onSelect={this.handleSelect} onClick={()=>this.setState({current_group:item})}>
+                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                        {item} : {this.display_permission(this.state.users[this.state.current_user][item])}
+                                     </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item eventKey={0}>None</Dropdown.Item>
+                                        <Dropdown.Item eventKey={1}>Monitor</Dropdown.Item>
+                                        <Dropdown.Item eventKey={2}>Control</Dropdown.Item>
+                                        <Dropdown.Item eventKey={3}>Supervisor</Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                                </ListGroupItem>
+                                :<div></div>
+                                , this
                             )
                             :
                             <div></div>          
@@ -107,10 +162,13 @@ class Manage_user extends React.Component{
                 </Col>
             </Row>
             <Row>
-                <Col align='center'>
-                    <Button variant='dark'>
+                <Col align='left'>
+                    <Button variant='dark' onClick={() => this.setState({show_usr_create:true})}>
                         Register new user  
                     </Button>
+                    <this.RegisterUserModal
+                                            show={this.state.show_usr_create}
+                                            onHide={() => this.setState({show_usr_create:false})}/>
                 </Col>
             </Row>
         </Container>
