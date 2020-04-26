@@ -1,0 +1,17 @@
+.container{
+    max-width: 96%;
+    text-align: center;
+}
+
+.ModuleSelectBox{
+    background-color: #373c51;
+    width: 100%;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.MuiList-padding {
+    margin: 8px 0;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}

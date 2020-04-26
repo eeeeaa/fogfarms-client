@@ -7,6 +7,8 @@ import ModuleDataGraph from "../components/ModuleData/ModuleDataGraph";
 import ModuleDataGrowUnit from "../components/ModuleData/ModuleDataGrowUnit";
 import { Container, Row, Col } from "react-bootstrap";
 import ModuleControllerTabs from "../components/ModuleController/ModuleControllerTabs";
+import "../../css_sheet/dashboard.css";
+import "../../css_sheet/notFromCode.css";
 
 const Dashboard = () => {
   return (

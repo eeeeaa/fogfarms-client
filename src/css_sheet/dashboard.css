@@ -1,0 +1,18 @@
+.dashBoard{
+    margin: 30px 10px 10px 0;
+    padding: 10px 10px 10px 0;
+}
+
+.containerBox{
+    background-color: #000000;
+    max-width: 250px;
+}
+
+.listBox{
+    background-color: #2b2e40;
+}
+
+.moduleName{
+    text-align: center;
+}
+

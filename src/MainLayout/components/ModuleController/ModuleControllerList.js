@@ -3,6 +3,13 @@ import { ModuleDataContext } from "../../contexts/ModuleDataContext";
 import app from "../../functions/axiosConfig";
 import Button from "react-bootstrap/Button";
 import { ConfirmationModal } from "../ConfirmationModal/ConfirmationModal";
+import { withStyles } from '@material-ui/core/styles';
+import { purple } from '@material-ui/core/colors';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 const ModuleControllerList = () => {
   const { controller, sensorModule, loadData } = useContext(
@@ -53,64 +60,105 @@ const ModuleControllerList = () => {
     )
   };
 
+  const IOSSwitch = withStyles((theme) => ({
+    root: {
+      width: 42,
+      height: 26,
+      padding: 0,
+      margin: theme.spacing(1),
+    },
+    switchBase: {
+      padding: 1,
+      '&$checked': {
+        transform: 'translateX(16px)',
+        color: theme.palette.common.white,
+        '& + $track': {
+          backgroundColor: '#52d869',
+          opacity: 1,
+          border: 'none',
+        },
+      },
+      '&$focusVisible $thumb': {
+        color: '#52d869',
+        border: '6px solid #fff',
+      },
+    },
+    thumb: {
+      width: 24,
+      height: 24,
+    },
+    track: {
+      borderRadius: 26 / 2,
+      border: `1px solid ${theme.palette.grey[400]}`,
+      backgroundColor: theme.palette.grey[50],
+      opacity: 1,
+      transition: theme.transitions.create(['background-color', 'border']),
+    },
+    checked: {},
+    focusVisible: {},
+  }))(({ classes, ...props }) => {
+    return (
+      <Switch
+        focusVisibleClassName={classes.focusVisible}
+        disableRipple
+        classes={{
+          root: classes.root,
+          switchBase: classes.switchBase,
+          thumb: classes.thumb,
+          track: classes.track,
+          checked: classes.checked,
+        }}
+        {...props}
+      />
+    );
+  });
+
   return (
     <div className="controller-list">
       {controller && checkedStatus ? (
         <>
-          <ul>
+          <FormGroup>
             {checkedStatus.fogger.map((checked, y) => {
               return (
-                <span key={y}>
-                  <h6 className="control-equip">Fogger {y + 1}</h6>
-                  <input
-                    type="checkbox"
-                    checked={checked}
-                    onChange={(e) => toggleChecked("fogger", e.target.checked, y)}
-                    className="slide"
-                  ></input>
-                </span>
+                <FormControlLabel
+                  control={<IOSSwitch  
+                    checked={checked} 
+                    onChange={(e) => toggleChecked("fogger", e.target.checked, y)}/>}
+                    label= {`Fogger Box${y+1}`}
+                />
               );
             })}
             {checkedStatus.led.map((checked, y) => {
               return (
-                <span key={y}>
-                  <h6 className="control-equip">Led {y + 1}</h6>
-                  <input
-                    type="checkbox"
-                    checked={checked}
-                    onChange={(e) => toggleChecked("led", e.target.checked, y)}
-                    className="slide"
-                  ></input>
-                </span>
+                <FormControlLabel
+                  control={<IOSSwitch  
+                    checked={checked} 
+                    onChange={(e) => toggleChecked("led", e.target.checked, y)}/>}
+                    label= {`Led Box ${y+1}`}
+                />
               );
             })}
             {checkedStatus.mixer.map((checked, y) => {
               return (
-                <span key={y}>
-                  <h6 className="control-equip">Mixer {y + 1}</h6>
-                  <input
-                    type="checkbox"
-                    checked={checked}
-                    onChange={(e) => toggleChecked("mixer", e.target.checked, y)}
-                    className="slide"
-                  ></input>
-                </span>
+                <FormControlLabel
+                  control={<IOSSwitch  
+                    checked={checked} 
+                    onChange={(e) => toggleChecked("mixer", e.target.checked, y)}/>}
+                    label= {`Mixer Box ${y+1}`}
+                />
               );
             })}
             {checkedStatus.solenoid_valve.map((checked, y) => {
               return (
-                <span key={y}>
-                  <h6 className="control-equip">Valves {y + 1}</h6>
-                  <input
-                    type="checkbox"
-                    checked={checked}
-                    onChange={(e) => toggleChecked("solenoid_valve", e.target.checked, y)}
-                    className="slide"
-                  ></input>
-                </span>
+                <FormControlLabel
+                  control={<IOSSwitch  
+                    checked={checked} 
+                    onChange={(e) => toggleChecked("solenoid_valve", e.target.checked, y)}/>}
+                    label= {`Valve Box ${y+1}`}
+                />
               );
             })}
-          </ul>
+          </FormGroup>
           <Button variant="primary" onClick={() => setModalShow(true)}>
             Save changes
           </Button>
