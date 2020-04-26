@@ -4,7 +4,6 @@ import app from "../functions/axiosConfig";
 export const ModuleDataContext = createContext();
 
 const ModuleDataContextProvider = (props) => {
-  const url = "https://salty-oasis-24147.herokuapp.com";
   const [groupName, setGroupName] = useState(1); //not a string, the group id must be a number.
   const [datas, setDatas] = useState([]); //give every information
   const [currentModule, setCurrentModule] = useState("allmodule"); //use allmodule as a default
@@ -17,9 +16,9 @@ const ModuleDataContextProvider = (props) => {
   useEffect(() => {
     loadData();
   }, []);
-
+  
   const loadData = () => {
-    app.post(url + "/dashboard", info).then((res) => {
+    app.post("/dashboard", info).then((res) => {
       const receivedData = res.data;
       const modulesJson = Object.keys(receivedData).map((key, i) => {
         return { ...receivedData[key], name: key };
@@ -27,6 +26,7 @@ const ModuleDataContextProvider = (props) => {
       setDatas(modulesJson);
     });
   };
+
 
   return (
     <ModuleDataContext.Provider

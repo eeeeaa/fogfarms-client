@@ -1,12 +1,13 @@
-import React, { useContext } from 'react';
-import { ModuleDataContext } from '../../contexts/ModuleDataContext';
+import React from 'react';
+import ModuleDataGraph from './ModuleDataGraph';
+import ModuleDataGrowUnit from './ModuleDataGrowUnit';
 
 const ModuleDataDetail = () => {
-	const {datas } = useContext(ModuleDataContext);
 	return (
-		<li>
-			<div className="grow-name">{datas.sensor_module}</div>
-		</li>
+		<div className="dataBox">
+			<ModuleDataGraph/>
+			<ModuleDataGrowUnit/>
+		</div>
 	);
 };
 export default ModuleDataDetail;
