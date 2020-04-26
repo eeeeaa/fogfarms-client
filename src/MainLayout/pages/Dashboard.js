@@ -7,7 +7,6 @@ import ModuleDataGraph from "../components/ModuleData/ModuleDataGraph";
 import ModuleDataGrowUnit from "../components/ModuleData/ModuleDataGrowUnit";
 import { Container, Row, Col } from "react-bootstrap";
 import ModuleControllerTabs from "../components/ModuleController/ModuleControllerTabs";
-import SignoutButton from "../TestFunction/QuickSignOut";
 
 const Dashboard = () => {
   return (
@@ -29,7 +28,6 @@ const Dashboard = () => {
           </ModuleDataContextProvider>
         </Row>
       </Container>
-      <SignoutButton />
     </div>
   );
 };

@@ -1,15 +1,15 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { ModuleDataContext } from '../../contexts/ModuleDataContext';
 import { Row, Col } from 'react-bootstrap';
+import {GraphCarousel} from '../Carousel/GraphCarousel';
 
 const ModuleDataGraph = () => {
-	const { datas } = useContext(ModuleDataContext);
+	const { sensorModule } = useContext(ModuleDataContext);
+	const [currentGraph,SetGraph] = useState('tds')
 	return (
 		<div className="graph-data">
 			<Row>
-				<Col>{datas.sensor_module}</Col>
-				<Col>ph 5.4</Col>
-				<Col>sol temp: 34 C</Col>
+				<GraphCarousel/>
 			</Row>
 			<div className="graphing"> graph</div>
 		</div>

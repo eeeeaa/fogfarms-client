@@ -38,6 +38,7 @@ const ModuleDataContextProvider = (props) => {
         loadData,
         sensorModule: datas.find((key) => key.name === currentModule)?.sensor_module,
         controller: datas.find((key) => key.name === currentModule)?.controller,
+        nutrient_amount: datas.find((key) => key.name === currentModule)?.nutrient_amount,
       }}
     >
       {props.children}
