@@ -16,7 +16,11 @@ class Manage_module extends React.Component{
         module_to_move:-1,
         show_move:false,
         show_create:false,
-
+        show_module:false,
+        show_del_dialog:false,
+        module_to_create:'',
+        module_to_delete:'',
+  
         plant_id:0,
         location_id:-1,
         tds:-1.0,
@@ -39,11 +43,18 @@ class Manage_module extends React.Component{
         console.log("boolean",bool_result);
         return  bool_result;
       }
+      validateCreate(){
+        return this.state.module_to_create.length > 0;
+      }
+      validateDelMod(){
+        return this.state.module_to_delete.length > 0;
+      }
     
       componentDidMount() {
         this.callData();
         this.callPlants();
       }
+
       callPlants(){
         app.get(serverName + "/plant_management")
           .then(res => {
@@ -137,6 +148,95 @@ class Manage_module extends React.Component{
           }
         })
       }
+      handleCreate(){
+        console.log("to be created",this.state.module_to_create);
+        const cmod = this.state.module_to_create;
+        app.post(serverName + '/modulegroup_management/create_module',{
+          "module_label":cmod
+        },{headers:{"Content-Type" : "application/json"}})
+        .then(res => {
+          console.log(res);
+          console.log(res.data);
+          if (res.status === 200) {
+            this.callData();
+            this.setState({show_module:false});
+          }
+          else{
+            return(
+              <Alert variant={'danger'}>
+                assignment unsuccessful!
+              </Alert>
+            )
+          }
+        })
+      }
+      handleDeleteModule(){
+        console.log("to be deleted",this.state.module_to_delete);
+        const dmod = parseInt(this.state.module_to_delete);
+        app.post(serverName + '/modulegroup_management/delete_module',{
+          "module_id":dmod
+        },{headers:{"Content-Type" : "application/json"}})
+        .then(res => {
+          console.log(res);
+          console.log(res.data);
+          if (res.status === 200) {
+            this.callData();
+            this.setState({show_module:false});
+          }
+          else{
+            return(
+              <Alert variant={'danger'}>
+                assignment unsuccessful!
+              </Alert>
+            )
+          }
+        })
+
+      }
+      handleDeleteGroup(){
+        if (this.state.current_group !== ''){
+          const cgroup = parseInt(this.state.module_groups[this.state.current_group].module_group_id);
+          console.log("group to be deleted", cgroup)
+          app.post(serverName + '/modulegroup_management/delete_modulegroup', {
+            "module_group_id": cgroup
+          }, { headers: { "Content-Type": "application/json" } })
+            .then(res => {
+              console.log(res);
+              console.log(res.data);
+              if (res.status === 200) {
+                this.setState({current_group:''});
+                this.callData();
+                this.setState({ show_del_dialog: false });
+              }
+              else {
+                return (
+                  <Alert variant={'danger'}>
+                    assignment unsuccessful!
+                  </Alert>
+                )
+              }
+            })
+        }else{
+          console.log("current user empty!")
+        }
+      }
+      DeleteDialog(props) {
+        return (
+          <Modal
+            {...props}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+          >
+            <Modal.Header closeButton>
+              <Modal.Title id="contained-modal-title-vcenter">
+                 Warning!
+              </Modal.Title>
+            </Modal.Header>
+            {props.children}
+          </Modal>
+        );
+      }
       CreateModuleModal(props){
         return(
           <Modal
@@ -189,6 +289,30 @@ class Manage_module extends React.Component{
             </Modal.Body>
             <Modal.Footer>
               {/* <Button onClick={props.onHide}>Close</Button> */}
+            </Modal.Footer>
+          </Modal>
+        );
+      }
+      ModuleModal(props) {
+        return (
+          <Modal
+            {...props}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+          >
+            <Modal.Header closeButton>
+              <Modal.Title id="contained-modal-title-vcenter">
+                Module
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              {
+                props.children
+              }
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={props.onHide}>Close</Button>
             </Modal.Footer>
           </Modal>
         );
@@ -286,22 +410,92 @@ class Manage_module extends React.Component{
                     </Button>
                     </div>
                     <div>
-                    <Button  variant ='dark' style = { {width: '200px'} }>
+                    <Button  variant ='dark' style = { {width: '200px'} } onClick={()=>
+                    {
+                        if(this.state.current_user !== ''){
+                            this.setState({show_del_dialog:true})
+                        }else{
+                            console.log('no current user!')
+                        }
+                    }}>
                         Delete selected module group
                     </Button>
                     </div>
                       
                 </Col>
                 <Col>
-                    <Button style = { {width: '200px'} }>
-                          Create new module
-                    </Button>
-                    <Button style = { {width: '200px'} }>
-                          Delete module...
-                    </Button>
-                   
+                    <Button style = { {width: '200px'} } onClick={()=>this.setState({show_module:true})}>
+                          Modules...
+                    </Button>                  
                           
                 </Col>
+                <this.DeleteDialog
+                        show={this.state.show_del_dialog}
+                        onHide={()=>this.setState({show_del_dialog:false})}>
+                            <Modal.Body>
+                            You are about to delete module group {this.state.current_group} !
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant='danger' onClick={this.handleDeleteGroup.bind(this)}>
+                                    Delete
+                                </Button>
+                                <Button onClick={()=>this.setState({show_del_dialog:false})}>Cancel</Button>
+                            </Modal.Footer>    
+                </this.DeleteDialog>
+                <this.ModuleModal
+                   show={this.state.show_module}
+                   onHide={() => this.setState({show_module:false})}
+                >
+                  <Form>
+                        <Form.Group>
+                          <Row>
+                              <Form.Label>Create module</Form.Label>
+                              <Form.Control 
+                               name = 'module_to_create'
+                               placeholder="module name"
+                               onChange={this.handleChange.bind(this)}
+                              >
+                              </Form.Control>
+                              <Button variant='info' style = { {width: '200px'} } 
+                              disabled ={!this.validateCreate()}
+                              onClick ={this.handleCreate.bind(this)}
+                              >
+                                create
+                              </Button>
+                          </Row>
+                        </Form.Group>
+                        <Form.Group>
+                        <Row>
+                              <Form.Label>Delete module</Form.Label>
+                              <Form.Control as="select" name="module_to_delete" onChange={this.handleChange.bind(this)}>
+                              {
+                              Object.keys(this.state.module_groups)
+                                .map(item => 
+                                  <>
+                                  {
+                                    this.state.module_groups[item].Modules
+                                    .map(
+                                      module =>
+                                      <option value={module}>
+                                        {module}
+                                      </option>
+                                      )
+                                    }
+                                  
+                                  </>
+                                , this)
+                              }
+                              </Form.Control>
+                              <Button variant='info' style = { {width: '200px'} }
+                              disabled ={!this.validateDelMod()}
+                              onClick ={this.handleDeleteModule.bind(this)}
+                              >
+                                 Delete
+                              </Button>
+                          </Row>
+                        </Form.Group>
+                  </Form>
+                </this.ModuleModal>
                 <this.CreateModuleModal
                                 show={this.state.show_create}
                                 onHide={() => this.setState({show_create:false})}>

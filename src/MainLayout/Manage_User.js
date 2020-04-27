@@ -59,23 +59,29 @@ class Manage_user extends React.Component{
       }
       handleDelete(){
         const cuser = this.state.current_user;
-        console.log("user to be deleted ",cuser)
-        app.post(serverName + '/user_management/delete',
-        {"username": cuser},{headers:{"Content-Type" : "application/json"}}
-        )
-        .then(res => {
-                  console.log(res);
-                  console.log(res.data);
-                  if (res.status === 200) {
-                        this.setState({current_user:''});
-                       this.callData();
-                       this.setState({show_del_dialog:false});
-                  }
-          }).catch(error => {
-               this.setState({show_alert:true});
-               console.log(error.message);
-          })
+        if (cuser === ''){
+            console.log("no user to be deleted")
+            this.setState({ show_alert: true });
+        }else{
+            console.log("user to be deleted ", cuser)
+            app.post(serverName + '/user_management/delete',
+                { "username": cuser }, { headers: { "Content-Type": "application/json" } }
+            )
+                .then(res => {
+                    console.log(res);
+                    console.log(res.data);
+                    if (res.status === 200) {
+                        this.setState({ current_user: '' });
+                        this.callData();
+                        this.setState({ show_del_dialog: false });
+                    }
+                }).catch(error => {
+                    this.setState({ show_alert: true });
+                    console.log(error.message);
+                })
+            }
         }
+        
         handleChange = e => {
             this.setState({ [e.target.name]: e.target.value });
             console.log(e.target.name,e.target.value)
@@ -145,12 +151,7 @@ class Manage_user extends React.Component{
                  Warning!
               </Modal.Title>
             </Modal.Header>
-            <Modal.Body>
-                {props.children}
-            </Modal.Body>
-            <Modal.Footer>
-              <Button onClick={props.onHide}>Cancel</Button>
-            </Modal.Footer>
+            {props.children}
           </Modal>
         );
       }
@@ -229,7 +230,14 @@ class Manage_user extends React.Component{
                     <Button variant='dark' onClick={() => this.setState({show_usr_create:true})}>
                         Register new user  
                     </Button>
-                    <Button variant='warning' onClick={()=>this.setState({show_del_dialog:true})}>
+                    <Button variant='warning' onClick={()=>{
+                        if(this.state.current_user !== ''){
+                            this.setState({show_del_dialog:true})
+                        }else{
+                            console.log('no current user!')
+                            this.setState({show_alert:true})
+                        }
+                    }}>
                         Delete currently selected user
                     </Button>
                     <this.RegisterUserModal
@@ -254,10 +262,15 @@ class Manage_user extends React.Component{
                     <this.DeleteDialog
                         show={this.state.show_del_dialog}
                         onHide={()=>this.setState({show_del_dialog:false})}>
+                            <Modal.Body>
                             You are about to delete user {this.state.current_user} !
-                            <Button variant='danger' onClick={this.handleDelete.bind(this)}>
-                                Delete
-                            </Button>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant='danger' onClick={this.handleDelete.bind(this)}>
+                                    Delete
+                                </Button>
+                                <Button onClick={()=>this.setState({show_del_dialog:false})}>Cancel</Button>
+                            </Modal.Footer>    
                             </this.DeleteDialog>
                     
                 </Col>
