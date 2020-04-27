@@ -9,6 +9,7 @@ import ModuleControllerTabs from "../components/ModuleController/ModuleControlle
 import "../../css_sheet/dashboard.css";
 import "../../css_sheet/notFromCode.css";
 import ModuleDataDetail from "../components/ModuleData/ModuleDataDetail";
+import ModuleContextProvider from "../contexts/ModuleContext";
 
 const Dashboard = () => {
   return (
@@ -16,16 +17,18 @@ const Dashboard = () => {
       <Container>
         <Row>
           <ModuleDataContextProvider>
-            <Col>
-              <ModuleSelect />
-            </Col>
-            <Col xs={6}>
-              <ModuleDataDetail/>
-            </Col>
-            <Col>
-              <ModuleControllerHeader />
-              <ModuleControllerTabs />
-            </Col>
+            <ModuleContextProvider>
+              <Col>
+                <ModuleSelect />
+              </Col>
+              <Col xs={6}>
+                <ModuleDataDetail />
+              </Col>
+              <Col>
+                <ModuleControllerHeader />
+                <ModuleControllerTabs />
+              </Col>
+            </ModuleContextProvider>
           </ModuleDataContextProvider>
         </Row>
       </Container>

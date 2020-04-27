@@ -3,18 +3,15 @@ import { ModuleDataContext } from "../../contexts/ModuleDataContext";
 import app from "../../functions/axiosConfig";
 import Button from "react-bootstrap/Button";
 import { ConfirmationModal } from "../ConfirmationModal/ConfirmationModal";
-import { withStyles } from '@material-ui/core/styles';
-import { purple } from '@material-ui/core/colors';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import { withStyles } from "@material-ui/core/styles";
+import FormGroup from "@material-ui/core/FormGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Switch from "@material-ui/core/Switch";
+import { ModuleContext } from "../../contexts/ModuleContext";
 
 const ModuleControllerList = () => {
-  const { controller, sensorModule, loadData } = useContext(
-    ModuleDataContext
-  );
+  const { controller, sensorModule, loadData } = useContext(ModuleDataContext);
+  const { modules } = useContext(ModuleContext);
   const [checkedStatus, setCheckedStatus] = useState();
   const [modalShow, setModalShow] = useState(false);
   const [isLoading, setLoading] = useState(false);
@@ -22,6 +19,7 @@ const ModuleControllerList = () => {
 
   useEffect(() => {
     setCheckedStatus(controller);
+    console.log("check Modules : ", modules);
   }, [controller]);
 
   const updateCheckedStatus = async () => {
@@ -31,9 +29,9 @@ const ModuleControllerList = () => {
         setLoading(true);
         const res = await app.post("/dashboard/update_device_status", {
           module_id: sensorModule.module_id,
-          foggers:checkedStatus.fogger,
-          leds:checkedStatus.led,
-          mixers:checkedStatus.mixer,
+          foggers: checkedStatus.fogger,
+          leds: checkedStatus.led,
+          mixers: checkedStatus.mixer,
           solenoid_valves: checkedStatus.solenoid_valve,
         });
         loadData();
@@ -55,9 +53,8 @@ const ModuleControllerList = () => {
         } else {
           return v;
         }
-      })
-    })
-    )
+      }),
+    }));
   };
 
   const IOSSwitch = withStyles((theme) => ({
@@ -69,18 +66,18 @@ const ModuleControllerList = () => {
     },
     switchBase: {
       padding: 1,
-      '&$checked': {
-        transform: 'translateX(16px)',
+      "&$checked": {
+        transform: "translateX(16px)",
         color: theme.palette.common.white,
-        '& + $track': {
-          backgroundColor: '#52d869',
+        "& + $track": {
+          backgroundColor: "#52d869",
           opacity: 1,
-          border: 'none',
+          border: "none",
         },
       },
-      '&$focusVisible $thumb': {
-        color: '#52d869',
-        border: '6px solid #fff',
+      "&$focusVisible $thumb": {
+        color: "#52d869",
+        border: "6px solid #fff",
       },
     },
     thumb: {
@@ -92,7 +89,7 @@ const ModuleControllerList = () => {
       border: `1px solid ${theme.palette.grey[400]}`,
       backgroundColor: theme.palette.grey[50],
       opacity: 1,
-      transition: theme.transitions.create(['background-color', 'border']),
+      transition: theme.transitions.create(["background-color", "border"]),
     },
     checked: {},
     focusVisible: {},
@@ -121,40 +118,60 @@ const ModuleControllerList = () => {
             {checkedStatus.fogger.map((checked, y) => {
               return (
                 <FormControlLabel
-                  control={<IOSSwitch  
-                    checked={checked} 
-                    onChange={(e) => toggleChecked("fogger", e.target.checked, y)}/>}
-                    label= {`Fogger Box${y+1}`}
+                  control={
+                    <IOSSwitch
+                      checked={checked}
+                      onChange={(e) =>
+                        toggleChecked("fogger", e.target.checked, y)
+                      }
+                    />
+                  }
+                  label={`Fogger Box${y + 1}`}
                 />
               );
             })}
             {checkedStatus.led.map((checked, y) => {
               return (
                 <FormControlLabel
-                  control={<IOSSwitch  
-                    checked={checked} 
-                    onChange={(e) => toggleChecked("led", e.target.checked, y)}/>}
-                    label= {`Led Box ${y+1}`}
+                  control={
+                    <IOSSwitch
+                      checked={checked}
+                      onChange={(e) =>
+                        toggleChecked("led", e.target.checked, y)
+                      }
+                    />
+                  }
+                  label={`Led Box ${y + 1}`}
                 />
               );
             })}
             {checkedStatus.mixer.map((checked, y) => {
               return (
                 <FormControlLabel
-                  control={<IOSSwitch  
-                    checked={checked} 
-                    onChange={(e) => toggleChecked("mixer", e.target.checked, y)}/>}
-                    label= {`Mixer Box ${y+1}`}
+                  control={
+                    <IOSSwitch
+                      checked={checked}
+                      onChange={(e) =>
+                        toggleChecked("mixer", e.target.checked, y)
+                      }
+                    />
+                  }
+                  label={`Mixer Box ${y + 1}`}
                 />
               );
             })}
             {checkedStatus.solenoid_valve.map((checked, y) => {
               return (
                 <FormControlLabel
-                  control={<IOSSwitch  
-                    checked={checked} 
-                    onChange={(e) => toggleChecked("solenoid_valve", e.target.checked, y)}/>}
-                    label= {`Valve Box ${y+1}`}
+                  control={
+                    <IOSSwitch
+                      checked={checked}
+                      onChange={(e) =>
+                        toggleChecked("solenoid_valve", e.target.checked, y)
+                      }
+                    />
+                  }
+                  label={`Valve Box ${y + 1}`}
                 />
               );
             })}

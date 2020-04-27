@@ -16,7 +16,7 @@ const ModuleDataContextProvider = (props) => {
   useEffect(() => {
     loadData();
   }, []);
-  
+
   const loadData = () => {
     app.post("/dashboard", info).then((res) => {
       const receivedData = res.data;
@@ -27,7 +27,6 @@ const ModuleDataContextProvider = (props) => {
     });
   };
 
-
   return (
     <ModuleDataContext.Provider
       value={{
@@ -36,9 +35,11 @@ const ModuleDataContextProvider = (props) => {
         setCurrentModule,
         groupName,
         loadData,
-        sensorModule: datas.find((key) => key.name === currentModule)?.sensor_module,
+        sensorModule: datas.find((key) => key.name === currentModule)
+          ?.sensor_module,
         controller: datas.find((key) => key.name === currentModule)?.controller,
-        nutrient_amount: datas.find((key) => key.name === currentModule)?.nutrient_amount,
+        nutrient_amount: datas.find((key) => key.name === currentModule)
+          ?.nutrient_amount,
       }}
     >
       {props.children}
