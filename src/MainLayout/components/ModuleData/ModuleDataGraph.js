@@ -34,7 +34,6 @@ const ModuleDataGraph = () => {
 
   //   useEffect(() => {
   //     setTime(formatTimestamp(timestamp));
-  //     console.log(time);
   //   }, [currentModule]);
 
   // const loadDataHistory = () => {
@@ -80,7 +79,7 @@ const ModuleDataGraph = () => {
       {sensorModule ? (
         sensorModule.tds.map((data, index) => {
           return (
-            <>
+            <React.Fragment key={index}>
               <div className="nutrientTitle">
                 <p>Nutrient{index + 1}</p>
               </div>
@@ -105,7 +104,7 @@ const ModuleDataGraph = () => {
                 />
               </div>
               <Line data={dataGraph} />
-            </>
+            </React.Fragment>
           );
         })
       ) : (

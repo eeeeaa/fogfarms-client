@@ -117,6 +117,7 @@ const ModuleControllerList = () => {
             {checkedStatus.fogger.map((checked, y) => {
               return (
                 <FormControlLabel
+                  key={y}
                   control={
                     <IOSSwitch
                       checked={checked}
@@ -132,6 +133,7 @@ const ModuleControllerList = () => {
             {checkedStatus.led.map((checked, y) => {
               return (
                 <FormControlLabel
+                  key={y}
                   control={
                     <IOSSwitch
                       checked={checked}
@@ -147,6 +149,7 @@ const ModuleControllerList = () => {
             {checkedStatus.mixer.map((checked, y) => {
               return (
                 <FormControlLabel
+                  key={y}
                   control={
                     <IOSSwitch
                       checked={checked}
@@ -162,6 +165,7 @@ const ModuleControllerList = () => {
             {checkedStatus.solenoid_valve.map((checked, y) => {
               return (
                 <FormControlLabel
+                  key={y}
                   control={
                     <IOSSwitch
                       checked={checked}
