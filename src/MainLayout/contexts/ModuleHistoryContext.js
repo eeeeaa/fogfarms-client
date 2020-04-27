@@ -12,7 +12,7 @@ const ModuleHistoryContextProvider = (props) => {
     //set which module group to pull data from
     module_group_id: 1,
     time_begin: "1999-04-21T03:00:00Z",
-    time_end: "2020-04-21T11:00:00Z",
+    time_end: "2020-04-30T11:00:00Z",
   };
 
   const loadHistory = () => {

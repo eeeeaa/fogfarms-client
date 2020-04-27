@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { ModuleHistoryContext } from "../../contexts/ModuleHistoryContext";
 import { ModuleDataContext } from "../../contexts/ModuleDataContext";
 import { Line } from "react-chartjs-2";
+import moment from "moment";
 
 const ModuleHistory = () => {
   const { historyDatas } = useContext(ModuleHistoryContext);
@@ -18,48 +19,18 @@ const ModuleHistory = () => {
     const x = historyDatas
       .find((key) => key.name === currentModule)
       ?.ok.map((item) => {
-        return item.timestamp;
+        return {x:moment(item.timestamp),y:item.tds[0]};
       });
-    console.log("X : ", x);
-    const y = arrayX.map((data, index) => {
-      return data;
-    });
-    setTimeArray(y);
-    const z = historyDatas
-      .find((key) => key.name === currentModule)
-      ?.ok.map((item, key) => {
-        return {
-          tds: item.tds,
-          ph: item.ph,
-          solution_temp: item.solution_temp,
-        };
-      });
-    console.log("Z here :", z);
-    setObjPara(z);
+  
+    setObjPara(x);
+    console.log(x);
   }, [currentModule]);
 
   const arrayX = ["2020-04-20T04:45:10.844009Z", "2020-04-20T04:45:11.467079Z"];
 
-  const transform = () => {
-    arrayX.map((data, index) => {
-      const time = data.substring(11, 19);
-      const day = data.substring(8, 10);
-      const month = data.substring(5, 7);
-      const all1 = month.concat(day);
-      const all2 = all1.concat(time);
-      return time;
-    });
-  };
-
-  const objY = {
-    tds: [1, 1],
-    ph: [1, 1],
-    solution_temp: [1, 1],
-  };
-
+  
   const dataGraph = {
-    labels: arrayX, //["January", "February", "March", "April", "May", "June", "July"], //array x-axis
-    datasets: [
+datasets: [
       {
         label: "My First dataset",
         fill: false,
@@ -79,16 +50,24 @@ const ModuleHistory = () => {
         pointHoverBorderWidth: 2,
         pointRadius: 1,
         pointHitRadius: 10,
-        data: objY?.solution_temp, //[65, 59, 80, 81, 56, 55, 40], //array y-axis
+        data: objPara, //[65, 59, 80, 81, 56, 55, 40], //array y-axis
       },
     ],
   };
+  var options = {
+   
+    scales: {
+        xAxes: [{
+            type: 'time',
+        }]
+    }
+}
 
   return (
     <div className="dataBox">
       {historyDatas ? (
         <>
-          <Line data={dataGraph} />
+          <Line data={dataGraph} options={options} />
         </>
       ) : (
         <div>No Module have been select</div>
