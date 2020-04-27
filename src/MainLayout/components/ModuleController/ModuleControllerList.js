@@ -19,7 +19,6 @@ const ModuleControllerList = () => {
 
   useEffect(() => {
     setCheckedStatus(controller);
-    console.log("check Modules : ", modules);
   }, [controller]);
 
   const updateCheckedStatus = async () => {

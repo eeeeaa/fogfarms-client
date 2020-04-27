@@ -9,7 +9,8 @@ const ModuleDataContextProvider = (props) => {
   const [currentModule, setCurrentModule] = useState("allmodule"); //use allmodule as a default
 
   const info = {
-    module_group_id: groupName, //set which module group to pull data from
+    //set which module group to pull data from
+    module_group_id: groupName,
   };
 
   //calling the data upfront.
@@ -34,12 +35,17 @@ const ModuleDataContextProvider = (props) => {
         currentModule,
         setCurrentModule,
         groupName,
+        setGroupName,
         loadData,
         sensorModule: datas.find((key) => key.name === currentModule)
           ?.sensor_module,
         controller: datas.find((key) => key.name === currentModule)?.controller,
         nutrient_amount: datas.find((key) => key.name === currentModule)
           ?.nutrient_amount,
+        timestamp: datas.find((key) => key.name === currentModule)
+          ?.sensor_module.timestamp,
+        moduleID: datas.find((key) => key.name === currentModule)?.sensor_module
+          .module_id,
       }}
     >
       {props.children}

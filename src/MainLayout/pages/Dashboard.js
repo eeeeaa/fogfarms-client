@@ -5,7 +5,6 @@ import ModuleControllerHeader from "../components/ModuleController/ModuleControl
 import ModuleDataContextProvider from "../contexts/ModuleDataContext";
 import { Container, Row, Col } from "react-bootstrap";
 import ModuleControllerTabs from "../components/ModuleController/ModuleControllerTabs";
-// import 'antd/dist/antd.css';
 import "../../css_sheet/dashboard.css";
 import "../../css_sheet/notFromCode.css";
 import ModuleDataDetail from "../components/ModuleData/ModuleDataDetail";
