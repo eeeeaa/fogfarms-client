@@ -9,12 +9,16 @@ const serverName = "https://salty-oasis-24147.herokuapp.com"
 class Manage_user extends React.Component{
     constructor(props) {
       super(props);
-      this.state = {users: [],current_user:'',current_group:'',show_usr_create:false,show_alert:false,show_del_dialog:false};
+      this.state = {users: [],current_user:'',current_group:'',show_usr_create:false,show_alert:false,show_del_dialog:false,new_username:'',new_password:''};
       // This binding is necessary to make `this` work in the callback
       this.handleClick = this.handleClick.bind(this);
       this.handleSelect = this.handleSelect.bind(this);
+      this.handleChange = this.handleChange.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
     }
-    
+    validateForm(){
+        return this.state.new_username.length > 0 && this.state.new_password.length > 0;
+    }
       componentDidMount() {
         this.callData();
       }
@@ -72,6 +76,30 @@ class Manage_user extends React.Component{
                console.log(error.message);
           })
         }
+        handleChange = e => {
+            this.setState({ [e.target.name]: e.target.value });
+            console.log(e.target.name,e.target.value)
+          };
+        handleSubmit(event){
+            const nusr = this.state.new_username;
+            const npss = this.state.new_password;
+            console.log(event);
+            app.post(serverName + "/user_management/register",{
+                "username":nusr,
+                "password":npss            
+            },{headers:{"Content-Type" : "application/json"}})
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+                if (res.status === 200) {
+                     this.callData();
+                     this.setState({show_usr_create:false});
+                }
+            }).catch(error => {
+                this.setState({ show_alert: true });
+                console.log(error.message);
+            })
+          }
       display_permission(key){
         switch (key){
             case 0: return 'None';break;
@@ -96,20 +124,7 @@ class Manage_user extends React.Component{
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                    <Form>
-                        <Form.Group controlId="formBasicEmail">
-                            <Form.Label>Username</Form.Label>
-                            <Form.Control type="string" placeholder="username" />
-                        </Form.Group>
-
-                        <Form.Group controlId="formBasicPassword">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" />
-                        </Form.Group>
-                        <Button variant="primary" type="submit">
-                            Submit
-                         </Button>
-                    </Form>
+                    {props.children}
             </Modal.Body>
             <Modal.Footer>
               {/* <Button onClick={props.onHide}>Close</Button> */}
@@ -219,7 +234,23 @@ class Manage_user extends React.Component{
                     </Button>
                     <this.RegisterUserModal
                                             show={this.state.show_usr_create}
-                                            onHide={() => this.setState({show_usr_create:false})}/>
+                                            onHide={() => this.setState({show_usr_create:false})}>
+                            <Form>
+                                <Form.Group controlId="formBasicEmail">
+                                    <Form.Label>Username</Form.Label>
+                                    <Form.Control name="new_username" onChange = {this.handleChange.bind(this)} type="string" placeholder="username" />
+                                </Form.Group>
+
+                                <Form.Group controlId="formBasicPassword">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control  name="new_password" onChange = {this.handleChange.bind(this)} type="password" placeholder="Password" />
+                                </Form.Group>
+                                <Button disabled={!this.validateForm()} onClick={this.handleSubmit.bind(this)} variant="primary">
+                                    Submit
+                                </Button>
+                            </Form>
+
+                    </this.RegisterUserModal>
                     <this.DeleteDialog
                         show={this.state.show_del_dialog}
                         onHide={()=>this.setState({show_del_dialog:false})}>

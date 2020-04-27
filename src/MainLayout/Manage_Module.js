@@ -100,6 +100,42 @@ class Manage_module extends React.Component{
       };
       handleSubmit(event){
         console.log(event);
+        const pid = parseInt(this.state.plant_id);
+        const lid = parseInt(this.state.location_id);
+        const ntds = parseFloat(this.state.tds);
+        const nph = parseFloat(this.state.ph);
+        const nhu = parseFloat(this.state.humidity);
+        const auto = this.state.on_auto;
+        const label = this.state.module_group_label;
+        const off = parseFloat(this.state.lights_off_hour);
+        const on = parseFloat(this.state.lights_on_hour);
+        app.post(serverName + '/modulegroup_management/create',{
+          "plant_id":pid,
+          "location_id":lid,
+          "tds":ntds,
+          "ph":nph,
+          "humidity":nhu,
+          "on_auto":auto,
+          "module_group_label":label,
+          "lights_off_hour":off,
+          "lights_on_hour":on
+
+        },{headers:{"Content-Type" : "application/json"}})
+        .then(res => {
+          console.log(res);
+          console.log(res.data);
+          if (res.status === 200) {
+            this.callData();
+            this.setState({show_create:false});
+          }
+          else{
+            return(
+              <Alert variant={'danger'}>
+                assignment unsuccessful!
+              </Alert>
+            )
+          }
+        })
       }
       CreateModuleModal(props){
         return(
@@ -293,42 +329,51 @@ class Manage_module extends React.Component{
                             <Form.Control 
                               name = 'location_id'
                               onChange = {this.handleChange.bind(this)}
-                              placeholder="username" />
+                              placeholder="0" />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>TDS</Form.Label>
-                            <Form.Control placeholder="0.0" />
+                            <Form.Control
+                              name = 'tds'
+                              onChange = {this.handleChange.bind(this)} 
+                             placeholder="0.0" />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>PH</Form.Label>
-                            <Form.Control  placeholder="0.0" />
+                            <Form.Control
+                            name = 'ph'
+                            onChange = {this.handleChange.bind(this)}
+                            placeholder="0.0" />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Humidity</Form.Label>
-                            <Form.Control placeholder="0.0" />
+                            <Form.Control
+                              name = 'humidity'
+                              onChange = {this.handleChange.bind(this)}
+                             placeholder="0.0" />
                         </Form.Group>
                         <Form.Group>
                           <Form.Label>Automation</Form.Label>
-                          <Form.Control as="select">
-                              <option>True</option>
-                              <option>False</option>
+                          <Form.Control name = "on_auto" onChange = {this.handleChange.bind(this)} as="select">
+                              <option value = {true}>True</option>
+                              <option value = {false}>False</option>
                           </Form.Control>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Group Label</Form.Label>
-                            <Form.Control type="string" placeholder="groupname" />
+                            <Form.Control name = "module_group_label" onChange = {this.handleChange.bind(this)} type="string" placeholder="groupname" />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Light off hour</Form.Label>
-                            <Form.Control  placeholder= "0.0" />
+                            <Form.Control name = "lights_off_hour" onChange = {this.handleChange.bind(this)}  placeholder= "0.0" />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Light on hour</Form.Label>
-                            <Form.Control  placeholder="0.0" />
+                            <Form.Control name = "lights_on_hour" onChange = {this.handleChange.bind(this)}  placeholder="0.0" />
                         </Form.Group>
 
                         
-                        <Button variant="primary" disabled={!this.validateForm()} type="submit" >
+                        <Button variant="primary" disabled={!this.validateForm()} onClick={this.handleSubmit.bind(this)} >
                             Submit
                          </Button>
                     </Form>

@@ -2,8 +2,28 @@ import React from 'react';
 import '../css_sheet/global_theme.css';
 import { Navbar,Nav,NavDropdown, NavLink,Alert, Button } from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
+import app from '../axiosConfig';
 
-function MenuBar(){
+function MenuBar(props){
+    const serverName = 'https://salty-oasis-24147.herokuapp.com';
+    const handleLogout = () => {
+        app.get(serverName + '/auth/sign_out')
+        .then(res => {
+            console.log(res);
+            console.log(res.data);
+            if(res.status === 200){
+                window.location.href = '/';
+            }
+            else{
+                return(
+                    <Alert variant={'danger'}>
+                      assignment unsuccessful!
+                    </Alert>
+                  )
+            }
+        })    
+        
+      }
     return(
         <Navbar collapseOnSelect expand="lg" bg='dark' variant='dark'>
             <Navbar.Brand >FogFarms</Navbar.Brand>
@@ -21,8 +41,8 @@ function MenuBar(){
                 </Nav>
                 <Nav>
                     <NavDropdown title = "Account">
-                        <NavDropdown.Item>Profile</NavDropdown.Item>
-                        <NavDropdown.Item>Log Out</NavDropdown.Item>
+                        {/* <NavDropdown.Item>Profile</NavDropdown.Item> */}
+                        <NavDropdown.Item onClick={handleLogout}>Log Out</NavDropdown.Item>
                     </NavDropdown>
                 </Nav>
             </Navbar.Collapse>

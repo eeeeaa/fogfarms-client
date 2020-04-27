@@ -6,11 +6,11 @@ import '../css_sheet/login.css';
 import '../css_sheet/global_theme.css';
 import Logo from '../image/Dashboard_Logo.png';
 function Login(props) {
-  const [org_id, setID] = useState(''); 
+  	const [org_id, setID] = useState(''); 
   //use useState to store variable
 	//store in variable email, change the stored value with setEmail
 	const [password, setPassword] = useState('');
-  const serverName = 'https://salty-oasis-24147.herokuapp.com';
+  	const serverName = 'https://salty-oasis-24147.herokuapp.com';
   
 	function validateForm() {
 		return org_id.length > 0 && password.length > 0;
@@ -24,13 +24,13 @@ function Login(props) {
 			password: password,
 		};
 		app.post(serverName + '/auth/sign_in', data).then((res) => {
-      console.log(res);
-      if(res.status === 200){
-        console.log("logging in")
-        props.history.push('/main');
-      }else{
-        console.log("sucksssss")
-      }
+			console.log(res);
+			if (res.status === 200) {
+				console.log("logging in")
+				props.history.push('/main');
+			} else {
+				console.log("sucksssss")
+			}
 		});
 	}
 	return (
