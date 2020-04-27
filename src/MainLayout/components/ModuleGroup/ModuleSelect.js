@@ -17,6 +17,24 @@ const ModuleSelect = () => {
     <div className="containerBox">
       <ModuleSelectHeader />
       <List component="nav" className="listBox" aria-label="mailbox folders">
+        {datas.map((data, index) => {
+          return (
+            <React.Fragment key={index}>
+              <ListItem
+                button
+                key={data.name || index}
+                onClick={() => {
+                  setCurrentModule(data.name);
+                }}
+              >
+                <Module name={data.name} key={index} />
+              </ListItem>
+              <Divider />
+            </React.Fragment>
+          );
+        })}
+        <ListItem>-------- </ListItem>
+        <Divider />
         <ListItem
           button
           key={"viewHistory"}
@@ -27,6 +45,7 @@ const ModuleSelect = () => {
         >
           <div className="moduleName">View History</div>
         </ListItem>
+        <Divider />
         <ListItem
           button
           key={"allmodule"}
@@ -35,24 +54,8 @@ const ModuleSelect = () => {
             history.push("/dashboard");
           }}
         >
-          <div className="moduleName">All Modules</div>
+          <div className="moduleName">Dashboard</div>
         </ListItem>
-        {datas.map((data, index) => {
-          return (
-            <React.Fragment key={index}>
-              <Divider />
-              <ListItem
-                button
-                key={data.name || index}
-                onClick={() => {
-                  setCurrentModule(data.name);
-                }}
-              >
-                <Module name={data.name} key={index} />
-              </ListItem>
-            </React.Fragment>
-          );
-        })}
       </List>
     </div>
   );

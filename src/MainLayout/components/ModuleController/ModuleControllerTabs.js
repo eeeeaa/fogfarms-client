@@ -1,19 +1,19 @@
 import React, { useState } from "react";
-import { Tabs, Tab } from "react-bootstrap";
+import { Tabs } from "antd";
 import ModuleParameterControl from "./ModuleParameterControl";
 import ModuleControllerList from "./ModuleControllerList";
 
 const ModuleControllerTabs = () => {
-  const [currentTab, setCurrentTab] = useState("parameter");
+  const { TabPane } = Tabs;
 
   return (
-    <Tabs activeKey={currentTab} onSelect={(k) => setCurrentTab(k)}>
-      <Tab eventKey="parameter" title="Parameters">
+    <Tabs defaultActiveKey="1">
+      <TabPane tab="Parameter" key="1">
         <ModuleParameterControl />
-      </Tab>
-      <Tab eventKey="controller" title="Equipment">
+      </TabPane>
+      <TabPane tab="Controller" key="2">
         <ModuleControllerList />
-      </Tab>
+      </TabPane>
     </Tabs>
   );
 };
