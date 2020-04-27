@@ -12,14 +12,14 @@ const ModuleHistoryContextProvider = (props) => {
     //set which module group to pull data from
     module_group_id: 1,
     time_begin: "1999-04-21T03:00:00Z",
-    time_end: "2020-04-21T11:00:00Z",
+    time_end: "2020-04-30T11:00:00Z",
   };
 
   const loadHistory = () => {
     app.post("/dashboard/history", info).then((res) => {
       const receivedData = res.data;
       const modulesJson = Object.keys(receivedData).map((key, i) => {
-        return { ...receivedData[key], name: key, ok: receivedData[key] };
+        return { name: key, data: receivedData[key] };
       });
       setHistoryDatas(modulesJson);
     });
@@ -27,7 +27,7 @@ const ModuleHistoryContextProvider = (props) => {
 
   //calling the data upfront.
   useEffect(() => {
-    loadHistory();
+    // loadHistory();
   }, [datas]);
 
   return (
