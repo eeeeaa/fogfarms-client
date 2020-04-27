@@ -19,7 +19,7 @@ const ModuleHistoryContextProvider = (props) => {
     app.post("/dashboard/history", info).then((res) => {
       const receivedData = res.data;
       const modulesJson = Object.keys(receivedData).map((key, i) => {
-        return { ...receivedData[key], name: key, ok: receivedData[key] };
+        return { name: key, data: receivedData[key] };
       });
       setHistoryDatas(modulesJson);
     });
@@ -27,7 +27,7 @@ const ModuleHistoryContextProvider = (props) => {
 
   //calling the data upfront.
   useEffect(() => {
-    loadHistory();
+    // loadHistory();
   }, [datas]);
 
   return (
