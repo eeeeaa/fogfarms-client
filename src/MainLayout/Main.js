@@ -16,13 +16,13 @@ const Menu = () => {
       <ModuleDataContextProvider>
         <MenuBar />
         <Switch>
-          <Route path="/" exact component={Login} />
+          <Route exact path="/" component={Login} />
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/dashboard_history" component={DashboardHistory} />
-          <Route path="/management_select" component={Management_select} />
-          <Route path="/management/module" component={Manage_module} />
-          <Route path="/management/user" component={Manage_user} />
-          <Route path="/management/plant" component={Manage_plant} />
+          <Route path="/manage-select" component={Management_select} />
+          <Route path="/manage-module" component={Manage_module} />
+          <Route path="/manage-user" component={Manage_user} />
+          <Route path="/manage-plant" component={Manage_plant} />
         </Switch>
       </ModuleDataContextProvider>
     </Router>

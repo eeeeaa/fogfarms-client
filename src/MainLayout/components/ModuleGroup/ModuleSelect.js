@@ -40,7 +40,7 @@ const ModuleSelect = () => {
         {datas.map((data, index) => {
           return (
             <React.Fragment key={index}>
-              <Divider key={index} />
+              <Divider />
               <ListItem
                 button
                 key={data.name || index}
