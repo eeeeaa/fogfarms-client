@@ -14,6 +14,7 @@ const ModuleParameterControl = () => {
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [onAuto, setOnAuto] = useState(false);
+  const [currentGroupData, setCurrentGroupData] = useState({});
 
   const [tds, setTds] = useState();
   const [ph, setPh] = useState();
@@ -23,11 +24,12 @@ const ModuleParameterControl = () => {
 
   const updateCheckedStatus = async () => {
     setError(undefined);
-    if (sensorModule && !isLoading) {
+    if (!isLoading) {
       try {
         setLoading(true);
-        const res = await app.post("/dashboard/set_env_parameter", {
-          module_id: sensorModule.module_id,
+        console.log(groupName, tds, ph, humidity, time_on, time_off);
+        const res = await app.post("/dashboard/set_env_param", {
+          module_group_id: groupName,
           tds: tds,
           ph: ph,
           humidity: humidity,
@@ -35,6 +37,7 @@ const ModuleParameterControl = () => {
           lights_off_hour: time_off,
         });
         loadData();
+        recievePost();
         setModalShow(false);
       } catch {
         setError("something went wrong");
@@ -49,6 +52,7 @@ const ModuleParameterControl = () => {
     if (!isLoading) {
       try {
         setLoading(true);
+        console.log(groupName);
         const res = await app.post("/dashboard/toggle_auto", {
           module_group_id: groupName,
         });
@@ -117,7 +121,7 @@ const ModuleParameterControl = () => {
 
   useEffect(() => {
     recievePost();
-  }, [groupName]);
+  }, []);
 
   const recievePost = () => {
     app
@@ -125,7 +129,8 @@ const ModuleParameterControl = () => {
         module_group_id: groupName,
       })
       .then((res) => {
-        const receivedData = res.on_auto;
+        const receivedData = res.data.on_auto;
+        setCurrentGroupData(res.data);
         setOnAuto(receivedData);
       });
   };
@@ -143,23 +148,23 @@ const ModuleParameterControl = () => {
           label={`On Auto`}
         />
         <Form.Group controlId="formTDS">
-          <Form.Label>TDS Value</Form.Label>
+          <Form.Label>TDS Current : {currentGroupData.tds}</Form.Label>
           <Form.Control
             required
             type="number"
             step="10"
             value={tds}
-            onChange={(e) => setTds(e.target.value)}
-            placeholder="Recommened Value 540-860"
+            onChange={(e) => setTds(parseInt(e.target.value, 10))}
+            placeholder="Range: 540-860"
           />
         </Form.Group>
         <Form.Group controlId="formPh">
-          <Form.Label>Ph value</Form.Label>
+          <Form.Label>Ph Current : {currentGroupData.ph}</Form.Label>
           <Form.Control
             required
             type="number"
             value={ph}
-            onChange={(e) => setPh(e.target.value)}
+            onChange={(e) => setPh(parseInt(e.target.value, 10))}
             min="1"
             max="14"
             step="0.1"
@@ -167,12 +172,14 @@ const ModuleParameterControl = () => {
           />
         </Form.Group>
         <Form.Group controlId="formHumidity">
-          <Form.Label>Humidity Percentage</Form.Label>
+          <Form.Label>
+            Humidity Current : {currentGroupData.humidity}%
+          </Form.Label>
           <Form.Control
             required
             type="number"
             value={humidity}
-            onChange={(e) => setHumidity(e.target.value)}
+            onChange={(e) => setHumidity(parseInt(e.target.value, 10))}
             min="0"
             max="100"
             step="0.1"
@@ -180,29 +187,36 @@ const ModuleParameterControl = () => {
           />
         </Form.Group>
         <Form.Group controlId="formLightOn">
-          <Form.Label>Lights On Hour</Form.Label>
+          <Form.Label>
+            Lights On Hour Current : {currentGroupData.lights_on_hour}
+          </Form.Label>
           <Form.Control
             required
             type="number"
             value={time_on}
-            onChange={(e) => setTime_on(e.target.value)}
+            onChange={(e) => setTime_on(parseInt(e.target.value, 10))}
             placeholder="2.5 = 2 hour 30 min"
           />
         </Form.Group>
         <Form.Group controlId="formLightoff">
-          <Form.Label>Lights Off Hour</Form.Label>
+          <Form.Label>
+            Lights Off Hour Current : {currentGroupData.lights_off_hour}
+          </Form.Label>
           <Form.Control
             required
             type="number"
             value={time_off}
-            onChange={(e) => setTime_off(e.target.value)}
+            onChange={(e) => setTime_off(parseInt(e.target.value, 10))}
             placeholder="2.5 = 2 hour 30 min"
           />
         </Form.Group>
         <Button
           variant="primary"
           type="submit"
-          onClick={() => setModalShow(true)}
+          onClick={(e) => {
+            e.preventDefault();
+            setModalShow(true);
+          }}
         >
           Submit
         </Button>
@@ -210,7 +224,9 @@ const ModuleParameterControl = () => {
       <ConfirmationModal
         show={modalShow}
         onHide={() => setModalShow(false)}
-        onConfirm={() => updateCheckedStatus()}
+        onConfirm={() => {
+          updateCheckedStatus();
+        }}
         closeText="Back"
         title="Adjust Parameters"
         message="Are you sure you want to make the change?"
@@ -221,7 +237,9 @@ const ModuleParameterControl = () => {
       <ConfirmationModal
         show={modalShowAuto}
         onHide={() => setModalShowAuto(false)}
-        onConfirm={() => updateAutoStatus()}
+        onConfirm={() => {
+          updateAutoStatus();
+        }}
         closeText="Back"
         title="Auto Setting"
         message="Are you sure you want to make the change?"

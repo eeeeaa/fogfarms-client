@@ -26,8 +26,12 @@ const DashboardHistory = () => {
               </Card>
             </Col>
             <Col>
-              <ModuleControllerHeader />
-              <ModuleControllerTabs />
+              <Card bg={"light"}>
+                <Card.Body>
+                  <ModuleControllerHeader />
+                  <ModuleControllerTabs />
+                </Card.Body>
+              </Card>
             </Col>
           </ModuleContextProvider>
         </Row>
