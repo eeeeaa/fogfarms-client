@@ -16,8 +16,8 @@ const DashboardHistory = () => {
     <div className="dashBoard">
       <Container>
         <Row>
-          <ModuleHistoryContextProvider>
-            <ModuleDataContextProvider>
+          {/* <ModuleHistoryContextProvider> */}
+            {/* <ModuleDataContextProvider> */}
               <ModuleContextProvider>
                 <Col>
                   <ModuleSelect />
@@ -30,8 +30,8 @@ const DashboardHistory = () => {
                   <ModuleControllerTabs />
                 </Col>
               </ModuleContextProvider>
-            </ModuleDataContextProvider>
-          </ModuleHistoryContextProvider>
+            {/* </ModuleDataContextProvider> */}
+          {/* </ModuleHistoryContextProvider> */}
         </Row>
       </Container>
     </div>

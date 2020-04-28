@@ -6,11 +6,11 @@ export const ModuleHistoryContext = createContext();
 
 const ModuleHistoryContextProvider = (props) => {
   const [historyDatas, setHistoryDatas] = useState([]); //give every information
-  const { datas, currentModule, moduleID } = useContext(ModuleDataContext); //use allmodule as a default
+  const { datas, currentModule, moduleID,groupName } = useContext(ModuleDataContext); //use allmodule as a default
 
   const info = {
     //set which module group to pull data from
-    module_group_id: 1,
+    module_group_id: groupName,
     time_begin: "1999-04-21T03:00:00Z",
     time_end: "2020-04-21T11:00:00Z",
   };
@@ -21,7 +21,9 @@ const ModuleHistoryContextProvider = (props) => {
       const modulesJson = Object.keys(receivedData).map((key, i) => {
         return {  name: key, data: receivedData[key] };
       });
+      console.log("groupName ",groupName);
       setHistoryDatas(modulesJson);
+      console.log("groupName ",modulesJson);
     });
   };
 

@@ -15,8 +15,9 @@ const Dashboard = () => {
     <div className="dashBoard">
       <Container>
         <Row>
-          <ModuleDataContextProvider>
+       
             <ModuleContextProvider>
+            {/* <ModuleDataContextProvider> */}
               <Col>
                 <ModuleSelect />
               </Col>
@@ -27,8 +28,9 @@ const Dashboard = () => {
                 <ModuleControllerHeader />
                 <ModuleControllerTabs />
               </Col>
+              {/* </ModuleDataContextProvider> */}
             </ModuleContextProvider>
-          </ModuleDataContextProvider>
+        
         </Row>
       </Container>
     </div>

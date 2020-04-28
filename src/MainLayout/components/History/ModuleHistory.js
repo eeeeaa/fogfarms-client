@@ -4,19 +4,21 @@ import { ModuleDataContext } from "../../contexts/ModuleDataContext";
 import app from "../../functions/axiosConfig";
 import { Line } from "react-chartjs-2";
 import moment from "moment";
-import { DatePicker } from 'antd';
-
+import {DatePicker} from "antd";
+import Dropdown from 'react-bootstrap/Dropdown';
 
 const ModuleHistory = () => {
-  const { datas, currentModule, moduleID } = useContext(ModuleDataContext);
+  const { datas, currentModule, moduleID,groupName } = useContext(ModuleDataContext);
   const [dataForGraph, setDataForGraph] = useState();
   const {RangePicker}=DatePicker;
   const [historyDatas, setHistoryDatas] = useState([]); //give every information
   const[startDate , setStartDate]=useState(moment());
   const[endDate , setEndDate]=useState(moment());
+  const[selectedValueKey,setSelectedValueKey]=useState("grow_unit_humidity");
+  const[valueOptions,setValueOptions]=useState(["tds", "ph", "solution_temp", "grow_unit_lux", "grow_unit_humidity", "grow_unit_temp"]);
   const info = {
     //set which module group to pull data from
-    module_group_id: 1,
+    module_group_id: groupName,
     time_begin: startDate.toDate().toISOString( ),
     time_end: endDate.toDate().toISOString( ),
   };
@@ -35,7 +37,7 @@ const ModuleHistory = () => {
   useEffect(() => {
     console.log("this is current info",info);
     loadHistory();
-  }, []);
+  }, [startDate,endDate]);
 
   useEffect(() => {
     const moduleHistoryData = historyDatas.find(
@@ -47,7 +49,9 @@ const ModuleHistory = () => {
         []
       ) ?? []
     );
-    const selectedKey = "grow_unit_humidity";
+
+    console.log("these are keys",keys);
+    const selectedKey = selectedValueKey;
     const numberOfSeries = moduleHistoryData?.reduce(
       (p, c) => (c[selectedKey].length > p ? c[selectedKey].length : p),
       0
@@ -89,7 +93,7 @@ const ModuleHistory = () => {
       });
     }
     console.log("called historydatas",historyDatas)
-  }, [currentModule]);
+  }, [currentModule,historyDatas,selectedValueKey]);
 
   const options = {
     scales: {
@@ -99,6 +103,11 @@ const ModuleHistory = () => {
         },
       ],
     },
+    title:{
+      display:true,
+      text:selectedValueKey
+    },
+
   };
 
   const onChange=(dates,dateStrings)=>{
@@ -111,8 +120,11 @@ const ModuleHistory = () => {
     console.log("Actual date",dates[0]);
     console.log("Actual date",dates[1]);
    }
-    
-   
+  };
+
+  const selectOption=(value)=>{
+    setSelectedValueKey(value);
+    console.log(value);
   };
   return (
     <div className="dataBox">
@@ -122,12 +134,22 @@ const ModuleHistory = () => {
         
         </>
       ) : (
-        <div>No Module have been select</div>
+        <div>Error, cnnot load graph</div>
       )}
-        <RangePicker  defaultValue={[moment(),moment()]}   onChange={onChange} showTime />
-  
-    </div>
-    
-  );
+       <RangePicker  defaultValue={[moment(),moment()]}   onChange={onChange} showTime /> 
+       
+       <Dropdown>
+  <Dropdown.Toggle variant="success" id="dropdown-basic">
+    Data Options
+  </Dropdown.Toggle>
+
+  <Dropdown.Menu>
+    {valueOptions.map((value,index)=>{
+      return <Dropdown.Item onClick={() => selectOption(value)}>{value}</Dropdown.Item>
+    })}
+  </Dropdown.Menu>
+</Dropdown>
+      </div>  
+        );
 };
 export default ModuleHistory;

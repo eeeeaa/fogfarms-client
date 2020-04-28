@@ -526,18 +526,27 @@ class Manage_module extends React.Component {
         </Row>
         <Row>
           <Col>
-            <div>
-              <LinkContainer to="/dashboard" exact>
-                <Button
-                  variant="dark"
-                  style={{ width: "200px" }}
-                  onClick={() => {
-                    const { setGroupName } = useContext(ModuleDataContext);
-                  }}
-                >
-                  Enter
-                </Button>
-              </LinkContainer>
+            <div>          
+               <ModuleDataContext.Consumer>
+                    {({setGroupName})=>{
+                        return (
+                        <LinkContainer to="/dashboard" exact>
+                        <Button
+                         variant="dark"
+                         style={{ width: "200px" }}
+                         onClick={() => {
+                           console.log("this is id ,", this.state.module_groups[this.state.current_group].module_group_id);
+                         setGroupName(this.state.module_groups[this.state.current_group].module_group_id);
+                         }}
+                       >
+                         Enter
+                       </Button>
+                       </LinkContainer>)
+                    }
+
+                    }
+              </ModuleDataContext.Consumer>
+             
             </div>
             <div>
               <Button

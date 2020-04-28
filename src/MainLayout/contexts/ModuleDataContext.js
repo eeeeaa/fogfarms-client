@@ -4,10 +4,10 @@ import app from "../functions/axiosConfig";
 export const ModuleDataContext = createContext();
 
 const ModuleDataContextProvider = (props) => {
-  const [groupName, setGroupName] = useState(1); //not a string, the group id must be a number.
+  const [groupName, setGroupName] = useState(); //not a string, the group id must be a number.
   const [datas, setDatas] = useState([]); //give every information
   const [currentModule, setCurrentModule] = useState("allmodule"); //use allmodule as a default
-
+  var x;
   const info = {
     //set which module group to pull data from
     module_group_id: groupName,
@@ -15,8 +15,9 @@ const ModuleDataContextProvider = (props) => {
 
   //calling the data upfront.
   useEffect(() => {
+    console.log(x);
     loadData();
-  }, []);
+  }, [groupName]);
 
   const loadData = () => {
     app.post("/dashboard", info).then((res) => {
