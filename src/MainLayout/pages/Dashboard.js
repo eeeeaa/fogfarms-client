@@ -3,7 +3,7 @@ import "../../css_sheet/global_theme.css";
 import ModuleSelect from "../components/ModuleGroup/ModuleSelect";
 import ModuleControllerHeader from "../components/ModuleController/ModuleControllerHeader";
 import ModuleDataContextProvider from "../contexts/ModuleDataContext";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col,Card } from "react-bootstrap";
 import ModuleControllerTabs from "../components/ModuleController/ModuleControllerTabs";
 import "../../css_sheet/dashboard.css";
 import "../../css_sheet/notFromCode.css";
@@ -24,8 +24,12 @@ const Dashboard = () => {
                 <ModuleDataDetail />
               </Col>
               <Col>
-                <ModuleControllerHeader />
-                <ModuleControllerTabs />
+              <Card>
+                  <Card.Body>
+                    <ModuleControllerHeader />
+                    <ModuleControllerTabs />
+                </Card.Body>
+                </Card>
               </Col>
             </ModuleContextProvider>
           </ModuleDataContextProvider>

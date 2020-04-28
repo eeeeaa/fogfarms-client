@@ -1,4 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import './css_sheet/bootstrap.min.css';
 import React from "react";
 import ReactDOM from "react-dom";
 import "./css_sheet/index.css";
