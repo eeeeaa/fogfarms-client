@@ -37,6 +37,17 @@ const ModuleSelect = () => {
         <Divider />
         <ListItem
           button
+          key={"allmodule"}
+          onClick={() => {
+            setCurrentModule("allmodule");
+            history.push("/dashboard");
+          }}
+        >
+          <div className="moduleName">View Data</div>
+        </ListItem>
+        <Divider />
+        <ListItem
+          button
           key={"viewHistory"}
           onClick={() => {
             setCurrentModule("viewHistory");
@@ -44,17 +55,6 @@ const ModuleSelect = () => {
           }}
         >
           <div className="moduleName">View History</div>
-        </ListItem>
-        <Divider />
-        <ListItem
-          button
-          key={"allmodule"}
-          onClick={() => {
-            setCurrentModule("allmodule");
-            history.push("/dashboard");
-          }}
-        >
-          <div className="moduleName">Dashboard</div>
         </ListItem>
       </List>
     </div>
