@@ -14,7 +14,6 @@ import {
   Dropdown,
   Alert,
   Form,
-  ButtonGroup,
 } from "react-bootstrap";
 
 const serverName = "https://salty-oasis-24147.herokuapp.com";
@@ -231,7 +230,7 @@ class Manage_user extends React.Component {
         </Alert>
         <Row className="Panels">
           <Col align="center">
-            <Card style={{ width: "40rem" }}>
+            <Card style={{ width: "40rem" }} bg="primary" text="light">
               <Card.Body>
                 <Card.Title>Users</Card.Title>
               </Card.Body>
@@ -252,7 +251,7 @@ class Manage_user extends React.Component {
             </Card>
           </Col>
           <Col align="center">
-            <Card style={{ width: "40rem" }}>
+            <Card style={{ width: "40rem" }} bg="primary" text="light">
               <Card.Body>
                 <Card.Title>Module group permission level</Card.Title>
               </Card.Body>

@@ -159,7 +159,7 @@
 .ant-progress-circle .ant-progress-inner {
   position: relative;
   line-height: 1;
-  background-color: transparent;
+  background-color: #1b681b;
 }
 .ant-progress-circle .ant-progress-text {
   position: absolute;

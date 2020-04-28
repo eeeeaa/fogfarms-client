@@ -44,7 +44,6 @@ const ModuleHistory = () => {
 
   //calling the data upfront.
   useEffect(() => {
-    console.log("this is current info", info);
     loadHistory();
   }, [startDate, endDate]);
 
@@ -59,7 +58,6 @@ const ModuleHistory = () => {
       ) ?? []
     );
 
-    console.log("these are keys", keys);
     const selectedKey = selectedValueKey;
     const numberOfSeries = moduleHistoryData?.reduce(
       (p, c) => (c[selectedKey].length > p ? c[selectedKey].length : p),
@@ -101,7 +99,6 @@ const ModuleHistory = () => {
           }) ?? [],
       });
     }
-    console.log("called historydatas", historyDatas);
   }, [currentModule, historyDatas, selectedValueKey]);
 
   const options = {
@@ -123,15 +120,11 @@ const ModuleHistory = () => {
     if (dates != undefined) {
       setStartDate(dates[0]);
       setEndDate(dates[1]);
-      console.log("After select date", startDate?.toDate().toISOString());
-      console.log("Actual date", dates[0]);
-      console.log("Actual date", dates[1]);
     }
   };
 
   const selectOption = (value) => {
     setSelectedValueKey(value);
-    console.log(value);
   };
   return (
     <div className="dataBox">

@@ -10,7 +10,7 @@ function Management_select() {
         <Card>
           <Card.Img
             variant="top"
-            src="https://images.unsplash.com/photo-1551970634-747846a548cb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
+            src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
           />
           <Card.Body>
             <Card.Title>Module groups</Card.Title>
@@ -25,7 +25,7 @@ function Management_select() {
         <Card>
           <Card.Img
             variant="top"
-            src="https://images.unsplash.com/photo-1551970634-747846a548cb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
+            src="https://images.unsplash.com/photo-1517732306149-e8f829eb588a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1052&q=80"
           />
           <Card.Body>
             <Card.Title>Users</Card.Title>

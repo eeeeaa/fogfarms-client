@@ -27,7 +27,6 @@ const ModuleParameterControl = () => {
     if (!isLoading) {
       try {
         setLoading(true);
-        console.log(groupName, tds, ph, humidity, time_on, time_off);
         const res = await app.post("/dashboard/set_env_param", {
           module_group_id: groupName,
           tds: tds,

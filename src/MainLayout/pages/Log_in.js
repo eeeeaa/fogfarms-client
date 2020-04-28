@@ -32,13 +32,13 @@ function Login(props) {
       <Image className="fluid mx-auto d-block" src={Logo} fluid />
       <form onSubmit={handleSubmit}>
         <Form.Group controlId="Email">
-          <Form.Label>Id</Form.Label>
+          <Form.Label>username</Form.Label>
           <FormControl
             autoFocus
             type="string"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="xxxxxx"
+            placeholder="username"
           />
         </Form.Group>
         <Form.Group controlId="Password">
@@ -47,7 +47,7 @@ function Login(props) {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="enter password here"
+            placeholder="password"
           />
         </Form.Group>
         <Button block bsSize="large" disabled={!validateForm()} type="submit">

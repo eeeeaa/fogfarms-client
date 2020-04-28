@@ -175,7 +175,7 @@ class Manage_plant extends React.Component {
       <Container fluid className="center-screen">
         <Row className="Panels">
           <Col align="center">
-            <Card style={{ width: "40rem" }}>
+            <Card style={{ width: "40rem" }} bg="primary" text="light">
               <Card.Body>
                 <Card.Title>Plants</Card.Title>
               </Card.Body>
@@ -196,7 +196,7 @@ class Manage_plant extends React.Component {
             </Card>
           </Col>
           <Col>
-            <Card style={{ width: "40rem" }}>
+            <Card style={{ width: "40rem" }} bg="primary" text="light">
               <Card.Body>
                 <Card.Title>Information</Card.Title>
                 {this.state.current_plant !== "" ? (

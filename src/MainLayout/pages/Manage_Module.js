@@ -360,7 +360,7 @@ class Manage_module extends React.Component {
   }
   render() {
     return (
-      <Container fluid className="center-screen">
+      <Container fluid className="center-screen" style={{ marginTop: "20px" }}>
         <Alert
           variant={"danger"}
           show={this.state.show_alert}
@@ -371,8 +371,8 @@ class Manage_module extends React.Component {
         </Alert>
         <Row className="Panels">
           <Col align="center">
-            <Card style={{ width: "40rem" }}>
-              <Card.Body>
+            <Card style={{ maxWidth: "40rem" }} bg="primary" text="light">
+              <Card.Body style={{ height: "120px" }}>
                 <Card.Title>Module Groups</Card.Title>
                 <Card.Text>
                   After selecting module group, list of modules will be display
@@ -405,8 +405,8 @@ class Manage_module extends React.Component {
           </Col>
           <Col align="center">
             <Row>
-              <Card style={{ width: "40rem" }}>
-                <Card.Body>
+              <Card style={{ width: "40rem" }} bg="primary" text="light">
+                <Card.Body style={{ height: "120px" }}>
                   <Card.Title>Modules</Card.Title>
                 </Card.Body>
                 <ListGroup variant="dark">
@@ -469,7 +469,7 @@ class Manage_module extends React.Component {
             </Row>
             <Row>
               <Card style={{ width: "40rem" }}>
-                <Card.Body>
+                <Card.Body style={{ minWidth: "550px" }}>
                   <Card.Title>Information</Card.Title>
                   {this.state.current_group !== "" ? (
                     <Card.Text>
@@ -526,27 +526,32 @@ class Manage_module extends React.Component {
         </Row>
         <Row>
           <Col>
-            <div>          
-               <ModuleDataContext.Consumer>
-                    {({setGroupName})=>{
-                        return (
-                        <LinkContainer to="/dashboard" exact>
-                        <Button
-                         variant="dark"
-                         style={{ width: "200px" }}
-                         onClick={() => {
-                           console.log("this is id ,", this.state.module_groups[this.state.current_group].module_group_id);
-                         setGroupName(this.state.module_groups[this.state.current_group].module_group_id);
-                         }}
-                       >
-                         Enter
-                       </Button>
-                       </LinkContainer>)
-                    }
-
-                    }
+            <div>
+              <ModuleDataContext.Consumer>
+                {({ setGroupName }) => {
+                  return (
+                    <LinkContainer to="/dashboard" exact>
+                      <Button
+                        variant="dark"
+                        style={{ width: "200px" }}
+                        onClick={() => {
+                          console.log(
+                            "this is id ,",
+                            this.state.module_groups[this.state.current_group]
+                              .module_group_id
+                          );
+                          setGroupName(
+                            this.state.module_groups[this.state.current_group]
+                              .module_group_id
+                          );
+                        }}
+                      >
+                        Enter
+                      </Button>
+                    </LinkContainer>
+                  );
+                }}
               </ModuleDataContext.Consumer>
-             
             </div>
             <div>
               <Button
@@ -769,25 +774,4 @@ class Manage_module extends React.Component {
     );
   }
 }
-/* class PersonList extends React.Component {
-    state = {
-      persons: []
-    }
-  
-    componentDidMount() {
-      axios.get(`https://jsonplaceholder.typicode.com/users`)
-        .then(res => {
-          const persons = res.data;
-          this.setState({ persons });
-        })
-    }
-  
-    render() {
-      return (
-        <ul>
-          { this.state.persons.map(person => <li>{person.name}</li>)}
-        </ul>
-      )
-    }
-  } */
 export default Manage_module;
