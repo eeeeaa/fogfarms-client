@@ -4,7 +4,7 @@ import ModuleDataGrowUnit from "./ModuleDataGrowUnit";
 
 const ModuleDataDetail = () => {
   return (
-    <div className="dataBox">
+    <div className="dataBox" style={{ color: "white" }}>
       <ModuleDataGraph />
       <ModuleDataGrowUnit />
     </div>

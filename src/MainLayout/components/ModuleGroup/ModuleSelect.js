@@ -14,7 +14,7 @@ const ModuleSelect = () => {
     ModuleDataContext
   );
   return (
-    <div className="containerBox">
+    <div className="containerBox" style={{ color: "white" }}>
       <ModuleSelectHeader />
       <List component="nav" className="listBox" aria-label="mailbox folders">
         {datas.map((data, index) => {

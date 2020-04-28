@@ -9,6 +9,7 @@ import Manage_user from "./pages/Manage_User";
 import Manage_module from "./pages/Manage_Module";
 import Manage_plant from "./pages/Manage_plant";
 import ModuleDataContextProvider from "./contexts/ModuleDataContext";
+import "../css_sheet/bootstrap.min.css";
 
 const Menu = () => {
   return (

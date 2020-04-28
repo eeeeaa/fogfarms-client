@@ -13,7 +13,6 @@ const ModuleDataGraph = () => {
   const [time, setTime] = useState("");
   const [history, SetHistory] = useState([]);
 
-
   //   const formatTimestamp = (timestamp) => {
   //     const x = timestamp.substring(0, 16);
   //     const y = "-0000";
@@ -38,8 +37,6 @@ const ModuleDataGraph = () => {
   // 	});
   // };
 
- 
-
   return (
     <div className="nutrientBox">
       {sensorModule ? (
@@ -49,9 +46,7 @@ const ModuleDataGraph = () => {
               <div className="nutrientTitle">
                 <p>Nutrient{index + 1}</p>
               </div>
-              <div className="nutrientTime">
-                <Moment>Total Time:{dateToFormat}</Moment>
-              </div>
+              <div className="nutrientTime"></div>
               <div>
                 <Progress
                   type="circle"
