@@ -21,9 +21,7 @@ const ModuleHistoryContextProvider = (props) => {
       const modulesJson = Object.keys(receivedData).map((key, i) => {
         return { name: key, data: receivedData[key] };
       });
-      console.log("groupName ", groupName);
       setHistoryDatas(modulesJson);
-      console.log("groupName ", modulesJson);
     });
   };
 

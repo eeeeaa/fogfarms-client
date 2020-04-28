@@ -57,18 +57,15 @@ class Manage_plant extends React.Component {
       .then((res) => {
         const plt_data = res.data.Data;
         this.setState({ plants: plt_data });
-        console.log("state", this.state.plants);
       })
       .catch((error) => console.log(error));
   }
   handleClick(item) {
     const ix = item;
     this.setState({ current_plant: ix });
-    console.log("current plant", this.state.current_plant);
   }
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
-    console.log(e.target.name, e.target.value);
   };
   handleSubmit(event) {
     const pname = this.state.pname;
@@ -91,8 +88,6 @@ class Manage_plant extends React.Component {
         { headers: { "Content-Type": "application/json" } }
       )
       .then((res) => {
-        console.log(res);
-        console.log(res.data);
         if (res.status === 200) {
           this.callData();
           this.setState({ show_plant_create: false });
@@ -106,7 +101,6 @@ class Manage_plant extends React.Component {
       console.log("no plant to be deleted");
     } else {
       const cplant = this.state.plants[this.state.current_plant].plant_id;
-      console.log("plant to be deleted ", cplant);
       app
         .post(
           serverName + "/plant_management/delete_plant",
@@ -114,8 +108,6 @@ class Manage_plant extends React.Component {
           { headers: { "Content-Type": "application/json" } }
         )
         .then((res) => {
-          console.log(res);
-          console.log(res.data);
           if (res.status === 200) {
             this.setState({ current_plant: "" });
             this.callData();

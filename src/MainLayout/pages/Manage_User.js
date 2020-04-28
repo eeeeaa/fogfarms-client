@@ -51,23 +51,13 @@ class Manage_user extends React.Component {
       .then((res) => {
         const usr_data = res.data;
         this.setState({ users: usr_data });
-        console.log("state", this.state.users);
       })
       .catch((error) => console.log(error));
   }
   handleClick(item) {
     this.setState({ current_user: item });
-    console.log("current user", this.state.current_user);
   }
   handleSelect(eventKey, event) {
-    console.log(
-      "user: ",
-      this.state.current_user,
-      "group:",
-      this.state.current_group,
-      "key: ",
-      eventKey
-    );
     const cuser = this.state.current_user;
     const cgroup = this.state.current_group;
     const level = parseInt(eventKey);
@@ -82,24 +72,19 @@ class Manage_user extends React.Component {
         { headers: { "Content-Type": "application/json" } }
       )
       .then((res) => {
-        console.log(res);
-        console.log(res.data);
         if (res.status === 200) {
           this.callData();
         }
       })
       .catch((error) => {
         this.setState({ show_alert: true });
-        console.log(error.message);
       });
   }
   handleDelete() {
     const cuser = this.state.current_user;
     if (cuser === "") {
-      console.log("no user to be deleted");
       this.setState({ show_alert: true });
     } else {
-      console.log("user to be deleted ", cuser);
       app
         .post(
           serverName + "/user_management/delete",
@@ -107,8 +92,6 @@ class Manage_user extends React.Component {
           { headers: { "Content-Type": "application/json" } }
         )
         .then((res) => {
-          console.log(res);
-          console.log(res.data);
           if (res.status === 200) {
             this.setState({ current_user: "" });
             this.callData();
@@ -117,19 +100,16 @@ class Manage_user extends React.Component {
         })
         .catch((error) => {
           this.setState({ show_alert: true });
-          console.log(error.message);
         });
     }
   }
 
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
-    console.log(e.target.name, e.target.value);
   };
   handleSubmit(event) {
     const nusr = this.state.new_username;
     const npss = this.state.new_password;
-    console.log(event);
     app
       .post(
         serverName + "/user_management/register",
@@ -140,8 +120,6 @@ class Manage_user extends React.Component {
         { headers: { "Content-Type": "application/json" } }
       )
       .then((res) => {
-        console.log(res);
-        console.log(res.data);
         if (res.status === 200) {
           this.callData();
           this.setState({ show_usr_create: false });
@@ -149,7 +127,6 @@ class Manage_user extends React.Component {
       })
       .catch((error) => {
         this.setState({ show_alert: true });
-        console.log(error.message);
       });
   }
   display_permission(key) {

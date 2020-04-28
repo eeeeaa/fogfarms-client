@@ -61,7 +61,6 @@ class Manage_module extends React.Component {
       this.state.module_group_label.length > 0 &&
       this.state.lights_off_hour > -1.0 &&
       this.state.lights_on_hour > -1.0;
-    console.log("boolean", bool_result);
     return bool_result;
   }
   validateCreate() {
@@ -82,7 +81,6 @@ class Manage_module extends React.Component {
       .then((res) => {
         const loc_data = res.data.locations;
         this.setState({ locations: loc_data });
-        console.log("state_loc", this.state.locations);
       })
       .catch((error) => console.log(error));
   }
@@ -92,7 +90,6 @@ class Manage_module extends React.Component {
       .then((res) => {
         const plt_data = res.data.Data;
         this.setState({ plants: plt_data });
-        console.log("state_plant", this.state.plants);
       })
       .catch((error) => console.log(error));
   }
@@ -102,13 +99,11 @@ class Manage_module extends React.Component {
       .then((res) => {
         const mod_data = res.data;
         this.setState({ module_groups: mod_data });
-        console.log("state", this.state.module_groups);
       })
       .catch((error) => console.log(error));
   }
   handleClick(item) {
     const id = item;
-    console.log("current group", id);
     this.setState({ current_group: id });
     Object.keys(this.state.plants).map((plant) => {
       if (
@@ -122,16 +117,8 @@ class Manage_module extends React.Component {
   }
   handleRightClick(stuff) {
     const module = stuff;
-    console.log("current module", module);
   }
   handleMove(dest_group) {
-    console.log(
-      "want to move " +
-        this.state.module_to_move +
-        " to module group " +
-        dest_group
-    );
-    console.log(this.state.module_groups);
     app
       .post(
         "/modulegroup_management/assign",
@@ -142,8 +129,6 @@ class Manage_module extends React.Component {
         { headers: { "Content-Type": "application/json" } }
       )
       .then((res) => {
-        console.log(res);
-        console.log(res.data);
         if (res.status === 200) {
           this.callData();
           this.setState({ show_move: false });
@@ -154,10 +139,8 @@ class Manage_module extends React.Component {
   }
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
-    console.log(e.target.name, e.target.value);
   };
   handleSubmit(event) {
-    console.log(event);
     const pid = parseInt(this.state.plant_id);
     const lid = parseInt(this.state.location_id);
     const ntds = parseFloat(this.state.tds);
@@ -184,8 +167,6 @@ class Manage_module extends React.Component {
         { headers: { "Content-Type": "application/json" } }
       )
       .then((res) => {
-        console.log(res);
-        console.log(res.data);
         if (res.status === 200) {
           this.callData();
           this.callPlants();
@@ -196,7 +177,6 @@ class Manage_module extends React.Component {
       });
   }
   handleCreate() {
-    console.log("to be created", this.state.module_to_create);
     const cmod = this.state.module_to_create;
     app
       .post(
@@ -207,8 +187,6 @@ class Manage_module extends React.Component {
         { headers: { "Content-Type": "application/json" } }
       )
       .then((res) => {
-        console.log(res);
-        console.log(res.data);
         if (res.status === 200) {
           this.callData();
           this.setState({ show_module: false });
@@ -218,7 +196,6 @@ class Manage_module extends React.Component {
       });
   }
   handleDeleteModule() {
-    console.log("to be deleted", this.state.module_to_delete);
     const dmod = parseInt(this.state.module_to_delete);
     app
       .post(
@@ -229,8 +206,6 @@ class Manage_module extends React.Component {
         { headers: { "Content-Type": "application/json" } }
       )
       .then((res) => {
-        console.log(res);
-        console.log(res.data);
         if (res.status === 200) {
           this.callData();
           this.setState({ show_module: false });
@@ -244,7 +219,6 @@ class Manage_module extends React.Component {
       const cgroup = parseInt(
         this.state.module_groups[this.state.current_group].module_group_id
       );
-      console.log("group to be deleted", cgroup);
       app
         .post(
           "/modulegroup_management/delete_modulegroup",
@@ -254,8 +228,6 @@ class Manage_module extends React.Component {
           { headers: { "Content-Type": "application/json" } }
         )
         .then((res) => {
-          console.log(res);
-          console.log(res.data);
           if (res.status === 200) {
             this.setState({ current_group: "" });
             this.callData();
@@ -266,7 +238,6 @@ class Manage_module extends React.Component {
         });
     } else {
       this.setState({ show_alert: true });
-      console.log("current user empty!");
     }
   }
   DeleteDialog(props) {
@@ -535,11 +506,6 @@ class Manage_module extends React.Component {
                         variant="dark"
                         style={{ width: "200px" }}
                         onClick={() => {
-                          console.log(
-                            "this is id ,",
-                            this.state.module_groups[this.state.current_group]
-                              .module_group_id
-                          );
                           setGroupName(
                             this.state.module_groups[this.state.current_group]
                               .module_group_id
