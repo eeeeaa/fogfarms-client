@@ -1,11 +1,9 @@
 import React from "react";
 import "../../css_sheet/global_theme.css";
 import { Container, Button, Card, CardDeck } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 
 function Management_select() {
-  let history = useHistory();
   return (
     <Container fluid className="center-vertical">
       <CardDeck>

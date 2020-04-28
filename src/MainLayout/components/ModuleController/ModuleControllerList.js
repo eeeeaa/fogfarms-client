@@ -3,9 +3,9 @@ import { ModuleDataContext } from "../../contexts/ModuleDataContext";
 import app from "../../functions/axiosConfig";
 import Button from "react-bootstrap/Button";
 import { ConfirmationModal } from "../ConfirmationModal/ConfirmationModal";
-import { withStyles } from "@material-ui/core/styles";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { withStyles } from "@material-ui/core/styles";
 import Switch from "@material-ui/core/Switch";
 import { ModuleContext } from "../../contexts/ModuleContext";
 

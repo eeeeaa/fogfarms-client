@@ -1,17 +1,10 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { ModuleDataContext } from "../../contexts/ModuleDataContext";
 // import app from '../../functions/axiosConfig';
 import { Progress } from "antd";
-import { Line } from "react-chartjs-2";
-import Moment from "react-moment";
 
 const ModuleDataGraph = () => {
-  const { sensorModule, groupName, timestamp, currentModule } = useContext(
-    ModuleDataContext
-  );
-  const [para, setPara] = useState("tds");
-  const [time, setTime] = useState("");
-  const [history, SetHistory] = useState([]);
+  const { sensorModule } = useContext(ModuleDataContext);
 
   //   const formatTimestamp = (timestamp) => {
   //     const x = timestamp.substring(0, 16);

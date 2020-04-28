@@ -6,7 +6,7 @@ export const ModuleHistoryContext = createContext();
 
 const ModuleHistoryContextProvider = (props) => {
   const [historyDatas, setHistoryDatas] = useState([]); //give every information
-  const { datas, currentModule, moduleID,groupName } = useContext(ModuleDataContext); //use allmodule as a default
+  const { datas, groupName } = useContext(ModuleDataContext); //use allmodule as a default
 
   const info = {
     //set which module group to pull data from
@@ -19,11 +19,11 @@ const ModuleHistoryContextProvider = (props) => {
     app.post("/dashboard/history", info).then((res) => {
       const receivedData = res.data;
       const modulesJson = Object.keys(receivedData).map((key, i) => {
-        return {  name: key, data: receivedData[key] };
+        return { name: key, data: receivedData[key] };
       });
-      console.log("groupName ",groupName);
+      console.log("groupName ", groupName);
       setHistoryDatas(modulesJson);
-      console.log("groupName ",modulesJson);
+      console.log("groupName ", modulesJson);
     });
   };
 

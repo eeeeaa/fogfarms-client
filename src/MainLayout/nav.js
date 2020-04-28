@@ -8,7 +8,6 @@ import { ModuleDataContext } from "./contexts/ModuleDataContext";
 
 const MenuBar = () => {
   let history = useHistory();
-  const { timer } = useContext(ModuleDataContext);
 
   const signOut = () => {
     try {
@@ -31,11 +30,10 @@ const MenuBar = () => {
           <LinkContainer to="/manage-select" exact>
             <Nav.Link>Home</Nav.Link>
           </LinkContainer>
-          <LinkContainer to="/dashboard" exact>
+          {/* <LinkContainer to="/dashboard" exact>
             <Nav.Link>Dashboard</Nav.Link>
-          </LinkContainer>
+          </LinkContainer> */}
           <Nav.Link>Alert</Nav.Link>
-          <Nav.Link>Timer</Nav.Link>
         </Nav>
         <Nav>
           <NavDropdown title="Account">

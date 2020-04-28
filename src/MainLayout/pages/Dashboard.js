@@ -2,7 +2,6 @@ import React from "react";
 import "../../css_sheet/global_theme.css";
 import ModuleSelect from "../components/ModuleGroup/ModuleSelect";
 import ModuleControllerHeader from "../components/ModuleController/ModuleControllerHeader";
-import ModuleDataContextProvider from "../contexts/ModuleDataContext";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import ModuleControllerTabs from "../components/ModuleController/ModuleControllerTabs";
 import "../../css_sheet/dashboard.css";
@@ -16,7 +15,6 @@ const Dashboard = () => {
       <Container>
         <Row>
           <ModuleContextProvider>
-            {/* <ModuleDataContextProvider> */}
             <Col>
               <ModuleSelect />
             </Col>
@@ -31,7 +29,6 @@ const Dashboard = () => {
                 </Card.Body>
               </Card>
             </Col>
-            {/* </ModuleDataContextProvider> */}
           </ModuleContextProvider>
         </Row>
       </Container>

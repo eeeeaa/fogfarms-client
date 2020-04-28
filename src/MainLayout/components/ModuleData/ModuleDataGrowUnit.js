@@ -3,7 +3,7 @@ import { ModuleDataContext } from "../../contexts/ModuleDataContext";
 import { Card, CardColumns } from "react-bootstrap";
 
 const ModuleDataGrowUnit = () => {
-  const { sensorModule, nutrient_amount } = useContext(ModuleDataContext);
+  const { sensorModule } = useContext(ModuleDataContext);
   return (
     <div className="growListBox">
       {sensorModule ? (

@@ -6,13 +6,10 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Divider from "@material-ui/core/Divider";
 import { useHistory } from "react-router-dom";
-import { ModuleHistoryContext } from "../../contexts/ModuleHistoryContext";
 
 const ModuleSelect = () => {
   let history = useHistory();
-  const { datas, setCurrentModule, currentModule } = useContext(
-    ModuleDataContext
-  );
+  const { datas, setCurrentModule } = useContext(ModuleDataContext);
   return (
     <div className="containerBox" style={{ color: "white" }}>
       <ModuleSelectHeader />
