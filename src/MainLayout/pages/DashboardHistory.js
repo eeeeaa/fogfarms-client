@@ -5,7 +5,7 @@ import ModuleControllerHeader from "../components/ModuleController/ModuleControl
 import ModuleDataContextProvider from "../contexts/ModuleDataContext";
 import ModuleContextProvider from "../contexts/ModuleContext";
 import ModuleHistory from "../components/History/ModuleHistory";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Card } from "react-bootstrap";
 import ModuleControllerTabs from "../components/ModuleController/ModuleControllerTabs";
 import "../../css_sheet/dashboard.css";
 import "../../css_sheet/notFromCode.css";
@@ -17,20 +17,24 @@ const DashboardHistory = () => {
       <Container>
         <Row>
           {/* <ModuleHistoryContextProvider> */}
-            {/* <ModuleDataContextProvider> */}
-              <ModuleContextProvider>
-                <Col>
-                  <ModuleSelect />
-                </Col>
-                <Col xs={6}>
+          {/* <ModuleDataContextProvider> */}
+          <ModuleContextProvider>
+            <Col>
+              <ModuleSelect />
+            </Col>
+            <Col xs={6}>
+              <Card>
+                <Card.Body>
                   <ModuleHistory />
-                </Col>
-                <Col>
-                  <ModuleControllerHeader />
-                  <ModuleControllerTabs />
-                </Col>
-              </ModuleContextProvider>
-            {/* </ModuleDataContextProvider> */}
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col>
+              <ModuleControllerHeader />
+              <ModuleControllerTabs />
+            </Col>
+          </ModuleContextProvider>
+          {/* </ModuleDataContextProvider> */}
           {/* </ModuleHistoryContextProvider> */}
         </Row>
       </Container>

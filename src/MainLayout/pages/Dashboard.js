@@ -24,7 +24,7 @@ const Dashboard = () => {
               <ModuleDataDetail />
             </Col>
             <Col>
-              <Card>
+              <Card bg={"light"}>
                 <Card.Body>
                   <ModuleControllerHeader />
                   <ModuleControllerTabs />
