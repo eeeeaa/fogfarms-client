@@ -6,17 +6,19 @@ import { Line } from "react-chartjs-2";
 import moment from "moment";
 import { DatePicker } from 'antd';
 
+
 const ModuleHistory = () => {
   const { datas, currentModule, moduleID } = useContext(ModuleDataContext);
   const [dataForGraph, setDataForGraph] = useState();
-const     {RangePicker}=DatePicker;
+  const {RangePicker}=DatePicker;
   const [historyDatas, setHistoryDatas] = useState([]); //give every information
-
+  const[startDate , setStartDate]=useState(moment());
+  const[endDate , setEndDate]=useState(moment());
   const info = {
     //set which module group to pull data from
     module_group_id: 1,
-    time_begin: "1999-04-21T03:00:00Z",
-    time_end: "2020-04-30T11:00:00Z",
+    time_begin: startDate.toDate().toISOString( ),
+    time_end: endDate.toDate().toISOString( ),
   };
 
   const loadHistory = () => {
@@ -31,6 +33,7 @@ const     {RangePicker}=DatePicker;
 
   //calling the data upfront.
   useEffect(() => {
+    console.log("this is current info",info);
     loadHistory();
   }, []);
 
@@ -85,6 +88,7 @@ const     {RangePicker}=DatePicker;
           }) ?? [],
       });
     }
+    console.log("called historydatas",historyDatas)
   }, [currentModule]);
 
   const options = {
@@ -97,6 +101,19 @@ const     {RangePicker}=DatePicker;
     },
   };
 
+  const onChange=(dates,dateStrings)=>{
+    
+    //console.log("Before select date",startDate?.toDate().toISOString( ));
+   if(dates!=undefined){
+    setStartDate(dates[0]);
+    setEndDate(dates[1]);
+    console.log("After select date",startDate?.toDate().toISOString( ));
+    console.log("Actual date",dates[0]);
+    console.log("Actual date",dates[1]);
+   }
+    
+   
+  };
   return (
     <div className="dataBox">
       {historyDatas ? (
@@ -107,7 +124,7 @@ const     {RangePicker}=DatePicker;
       ) : (
         <div>No Module have been select</div>
       )}
-        <RangePicker  defaultValue={[moment(),moment()]}       style={{ width: 100 }} />
+        <RangePicker  defaultValue={[moment(),moment()]}   onChange={onChange} showTime />
   
     </div>
     
