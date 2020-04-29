@@ -15,7 +15,7 @@ const ModuleDataContextProvider = (props) => {
   //calling the data upfront.
   useEffect(() => {
     loadData();
-  }, [groupName]);
+  }, [groupName, currentModule]);
 
   const loadData = () => {
     app.post("/dashboard", info).then((res) => {
